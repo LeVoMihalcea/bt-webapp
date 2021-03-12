@@ -1,0 +1,34 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <h2>Create a Room</h2>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Room name" formControlName="name" required>
+          <mat-error>
+            Please provide a valid room name
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Room type" formControlName="type" required>
+          <mat-error>
+            Please provide a valid room type
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="10" placeholder="Description" formControlName="description" required></textarea>
+          <mat-error>
+            Please provide a valid room description
+          </mat-error>
+        </mat-form-field>
+        <mat-error class="invisible" [ngClass]="{'visible': this.error}">
+          {{this.error}}
+        </mat-error>
+        <button mat-raised-button color="primary">Create room</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

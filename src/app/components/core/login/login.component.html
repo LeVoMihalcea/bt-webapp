@@ -1,0 +1,30 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <h2>Log In</h2>
+
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Email" formControlName="email" required>
+          <mat-error>
+            Please provide a valid email address
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput type="password" placeholder="Password" formControlName="password" required>
+          <mat-error>
+            Please provide a valid password
+          </mat-error>
+        </mat-form-field>
+        <mat-error class="invisible" [ngClass]="{'visible': this.error}">
+          The username and password were not recognised
+        </mat-error>
+        <button mat-raised-button color="primary">Login</button>
+      </form>
+      <br><br>
+      <mat-card-subtitle class="footer">
+        Forgot your password? Press <a href="#">here!</a>
+      </mat-card-subtitle>
+    </mat-card-content>
+  </mat-card>
+</div>
