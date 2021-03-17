@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://192.168.0.122:19580',
-  agoraTokenApiUrl: 'http://192.168.0.122:19575',
+  apiUrl: 'http://localhost:19580',
+  agoraTokenApiUrl: 'http://localhost:19575',
   appId: '5b6c486a6cdc41e2829544fb59a24761'
 };
 

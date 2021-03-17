@@ -5,8 +5,10 @@ pipeline{
         stage('Deployment'){
             steps{
                 sh '''
-                        docker build -t bt-webapp:prod .
-                        docker run -p 80:80 --restart unless-stopped --name bt:webapp bt-webapp:prod
+                        docker-compose -f /opt/bt-tokenizer/docker-compose.yml down || true
+                        docker image rm bt-webapp
+                        docker build -t bt-webapp .
+                        docker-compose -f /opt/bt-tokenizer/docker-compose.yml up -d
                 '''
             }
         }
