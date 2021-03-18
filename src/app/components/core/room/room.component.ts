@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/services/authentication.service';
 import {TokenService} from '@app/services/token.service';
 import {ActivatedRoute} from '@angular/router';
-import {AgoraClient, AngularAgoraRtcService} from 'angular-agora-rtc';
+import {AngularAgoraRtcService} from 'angular-agora-rtc';
 import {Stream} from 'agora-rtc-sdk';
 
 @Component({
@@ -69,7 +69,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       this.agoraService.client.publish(this.localStream, (err) => {
         console.log('Publish local stream error: ' + err);
       });
-      this.agoraService.client.on('stream-published', (evt) => {
+      this.agoraService.client.on('stream-published', () => {
         console.log('Publish local stream successfully');
       });
     }, (err) => {
