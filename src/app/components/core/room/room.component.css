@@ -1,19 +1,20 @@
 
 .containers{
-  margin: 200px auto 0 auto;
+  margin: 100px 50px 0 auto;
 }
 
 #agora_local{
-  height: 500px;
+  height: 350px;
   width: 500px;
   display: inline-block;
+  border: 1px solid darkgray;
 }
 
-.remote-containers div{
-  height: 250px;
-  width: 250px;
+.remote_calls{
+  margin-left: 50px;
+  height: 350px;
+  width: 500px;
+  display: inline-block;
+  border: 1px solid darkgray;
 }
 
-.video-stream {
-  border-radius: 25px;
-}

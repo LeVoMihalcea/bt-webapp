@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/services/authentication.service';
 import {TokenService} from '@app/services/token.service';
 import {ActivatedRoute} from '@angular/router';
@@ -10,7 +10,7 @@ import {Stream} from 'agora-rtc-sdk';
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.css']
 })
-export class RoomComponent implements OnInit {
+export class RoomComponent implements OnInit, OnDestroy {
   private error = '';
   private token = '';
   private channelKey = '';
@@ -24,6 +24,10 @@ export class RoomComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.agoraService.createClient();
+  }
+
+  ngOnDestroy(): void {
+    this.localStream.stop();
   }
 
 
@@ -95,7 +99,9 @@ export class RoomComponent implements OnInit {
     // Add
     this.agoraService.client.on('stream-subscribed', (evt) => {
       const stream = evt.stream;
-      if (!this.remoteCalls.includes(`agora_remote${stream.getId()}`)) { this.remoteCalls.push(`agora_remote${stream.getId()}`); }
+      if (!this.remoteCalls.includes(`agora_remote${stream.getId()}`)) {
+        this.remoteCalls.push(`agora_remote${stream.getId()}`);
+      }
       setTimeout(() => stream.play(`agora_remote${stream.getId()}`), 2000);
     });
 
