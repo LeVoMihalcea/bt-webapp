@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  name: 'LOCAL',
-  apiUrl: 'http://localhost:19580',
-  agoraTokenApiUrl: 'http://localhost:19575',
+  name: 'DEV',
+  apiUrl: 'https://bt-backend.sudo.rocks',
+  agoraTokenApiUrl: 'https://bt-tokenizer.sudo.rocks',
   appId: '5b6c486a6cdc41e2829544fb59a24761'
 };
 
