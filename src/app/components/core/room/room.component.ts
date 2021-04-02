@@ -142,7 +142,6 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   private setEventListenerForRemoteStreamsAdded(): void {
     this.agoraService.client.on(ClientEvent.RemoteStreamAdded, (evt) => {
-      console.log('Remote Stream Added!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
       const stream = evt.stream as Stream;
       this.agoraService.client.subscribe(stream, null, (err) => {
         this.errorService.showError('Subscribe stream failed' + err);
@@ -213,6 +212,9 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   toggleSound(): void {
     this.videoState.soundOff = !this.videoState.soundOff;
-    this.localStream.setAudioVolume(0);
+    if (this.videoState.soundOff){
+      this.localStream.setAudioVolume(0);
+    }
+    this.localStream.setAudioVolume(100);
   }
 }
