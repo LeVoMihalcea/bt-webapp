@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '@app/services/authentication.service';
-import {User} from '@app/components/domain/user';
+import {User} from '@app/components/domain/User';
 import {HealthService} from '@app/services/health.service';
-import {Room} from '@app/components/domain/room';
+import {Room} from '@app/components/domain/Room';
 import {RoomService} from '@app/services/room.service';
 import {Router} from '@angular/router';
 import {ClipboardService} from 'ngx-clipboard';

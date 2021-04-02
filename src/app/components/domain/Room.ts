@@ -1,4 +1,4 @@
-import {User} from '@app/components/domain/user';
+import {User} from '@app/components/domain/User';
 
 export class Room {
   id: string;

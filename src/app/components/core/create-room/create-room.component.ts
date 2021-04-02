@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RoomService} from '@app/services/room.service';
-import {Room} from '@app/components/domain/room';
+import {Room} from '@app/components/domain/Room';
 import {Router} from '@angular/router';
 
 @Component({

@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/services/authentication.service';
 import {TokenService} from '@app/services/token.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AngularAgoraRtcService} from 'angular-agora-rtc';
 import {Stream} from 'agora-rtc-sdk';
+import {VideoState} from '@app/components/domain/VideoState';
 
 @Component({
   selector: 'app-room',
@@ -15,19 +16,22 @@ export class RoomComponent implements OnInit, OnDestroy {
   private token = '';
   private channelKey = '';
   private localStream: Stream;
+  public videoState: VideoState;
   remoteCalls: any = [];
 
   constructor(
     private agoraService: AngularAgoraRtcService,
     public authenticationService: AuthenticationService,
     public tokenService: TokenService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.agoraService.createClient();
+    this.videoState = new VideoState();
   }
 
   ngOnDestroy(): void {
-    this.localStream.stop();
+    this.localStream.close();
   }
 
 
@@ -124,4 +128,19 @@ export class RoomComponent implements OnInit, OnDestroy {
     });
   }
 
+  exitCall(): void {
+    this.router.navigate(['']);
+  }
+
+  toggleMute(): void {
+    this.videoState.micOff = !this.videoState.micOff;
+  }
+
+  toggleVideo(): void {
+    this.videoState.cameraOff = !this.videoState.cameraOff;
+  }
+
+  toggleSound(): void {
+    this.videoState.soundOff = !this.videoState.soundOff;
+  }
 }

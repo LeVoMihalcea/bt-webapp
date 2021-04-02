@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '@environments/environment';
-import {Room} from '../components/domain/room';
+import {Room} from '../components/domain/Room';
 
 @Injectable({
   providedIn: 'root'

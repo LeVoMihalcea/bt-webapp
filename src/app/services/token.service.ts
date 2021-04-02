@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Room} from '../components/domain/room';
+import {Room} from '../components/domain/Room';
 import {environment} from '../../environments/environment';
 import {AuthenticationService} from './authentication.service';
 
