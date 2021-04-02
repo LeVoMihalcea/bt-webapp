@@ -27,6 +27,7 @@
     "@schematics/angular": "^9.1.0",
     "agora-rtc-sdk": "latest",
     "angular-agora-rtc": "^0.1.0",
+    "ngx-agora": "^2.0.1",
     "ngx-clipboard": "^14.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
