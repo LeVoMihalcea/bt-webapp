@@ -184,11 +184,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   exitCall(): void {
-    this.agoraService.client.leave(() => {
-      },
-      (err) => {
-        this.errorService.showError('Leave channel failed');
-      });
+    this.localStream.close();
     this.router.navigate(['']);
   }
 

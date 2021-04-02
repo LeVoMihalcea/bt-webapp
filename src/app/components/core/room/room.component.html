@@ -1,7 +1,8 @@
-<div class="containers" fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="center">
-  <div id="agora_local">
+<div class="containers" fxLayout="row wrap" fxLayoutAlign="center center">
+  <div id="agora_local" fxFlex="500px">
   </div>
-  <div class="remote_calls" *ngFor="let remote of remoteCalls;" [id]="remote">
+  <div class="remote_calls" *ngFor="let remote of remoteCalls;" [id]="remote"
+       fxFlex="500px">
   </div>
 </div>
 

@@ -7,11 +7,10 @@
   height: 350px;
   width: 500px;
   display: inline-block;
-  border: 1px solid darkgray;
+  border: 1px solid green;
 }
 
 .remote_calls{
-  margin-left: 50px;
   height: 350px;
   width: 500px;
   display: inline-block;
