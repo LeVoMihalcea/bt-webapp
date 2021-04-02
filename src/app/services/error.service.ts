@@ -11,6 +11,8 @@ export class ErrorService {
   ) { }
 
   showError(message: string): void{
-    this.snackBarModule.open(message);
+    this.snackBarModule.open(message, 'x', {
+      duration: 5000
+    });
   }
 }

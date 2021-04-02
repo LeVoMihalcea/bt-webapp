@@ -15,6 +15,7 @@ import {ClipboardService} from 'ngx-clipboard';
 export class HomeComponent implements OnInit {
   public currentUser: User;
   public rooms: Room[] = [];
+  public maxLength = 25;
 
   constructor(
     public authenticationService: AuthenticationService,
