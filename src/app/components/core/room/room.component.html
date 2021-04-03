@@ -1,29 +1,28 @@
-<div class="containers" fxLayout="row wrap" fxLayoutAlign="center center">
-  <div id="agora_local" fxFlex="500px">
+<div class="container">
+  <div id="agora_local" class="videostream">
   </div>
-  <div class="remote_calls" *ngFor="let remote of remoteCalls;" [id]="remote"
-       fxFlex="500px">
+  <div class="remote_calls videostream" *ngFor="let remote of remoteCalls;" [id]="remote">
   </div>
 </div>
 
 <div class="controls">
   <div class="inner-controls">
     <button mat-icon-button (click)="exitCall()">
-      <span class="material-icons">
+      <span class="material-icons red-button">
         close
       </span>
     </button>
-    <button mat-icon-button (click)="toggleMute()">
+    <button mat-icon-button (click)="toggleMute()" [class.red-button]="videoState.micOff">
       <span class="material-icons">
         {{videoState.micOff ? 'mic_off' : 'mic'}}
       </span>
     </button>
-    <button mat-icon-button (click)="toggleVideo()">
+    <button mat-icon-button (click)="toggleVideo()" [class.red-button]="videoState.cameraOff">
       <span class="material-icons">
        {{videoState.cameraOff ? 'videocam_off' : 'videocam'}}
       </span>
     </button>
-    <button mat-icon-button (click)="toggleSound()">
+    <button mat-icon-button (click)="toggleSound()" [class.red-button]="videoState.soundOff">
       <span class="material-icons">
         {{videoState.soundOff ? 'headset_off' : 'headset'}}
       </span>

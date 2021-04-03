@@ -41,6 +41,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   public videoState: VideoState;
   private agoraClient: AgoraClient;
   remoteCalls: any = [];
+  breakpoint: any;
 
   private static getConfig(): ClientConfig {
     return {
@@ -64,6 +65,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    this.breakpoint = (window.innerWidth <= 400) ? 1 : 4;
     this.route.params.subscribe(params => this.channelKey = params.id);
     this.tokenService.askForToken(this.channelKey)
       .subscribe(

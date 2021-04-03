@@ -1,26 +1,31 @@
 
-.containers{
-  margin: 100px 50px 0 auto;
+.container{
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 2fr));
+  align-items: center;
+  justify-content: space-between;
 }
 
 #agora_local{
-  height: 350px;
-  width: 500px;
-  display: inline-block;
-  border: 1px solid green;
 }
 
 .remote_calls{
-  height: 350px;
-  width: 500px;
-  display: inline-block;
+}
+
+.videostream{
+  margin: 50px;
+  width: 400px;
+  height: 250px;
   border: 1px solid darkgray;
+  border-radius: 10px;
+  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }
 
 .controls{
   position: absolute !important;
   left: 50%;
-  bottom: 50px;
+  bottom: 20px;
 }
 
 .inner-controls{
@@ -34,4 +39,8 @@ button{
   margin: 0 auto 0 auto;
   width: 50px;
   height: 50px;
+}
+
+.red-button{
+  color: red;
 }

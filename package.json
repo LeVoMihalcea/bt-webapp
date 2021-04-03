@@ -13,7 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~11.1.2",
+    "@angular/animations": "^11.1.2",
     "@angular/cdk": "^11.1.2",
     "@angular/common": "~11.1.2",
     "@angular/compiler": "~11.1.2",
@@ -29,6 +29,8 @@
     "angular-agora-rtc": "^0.1.0",
     "ngx-agora": "^2.0.1",
     "ngx-clipboard": "^14.0.1",
+    "primeicons": "^4.1.0",
+    "primeng": "^11.3.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
