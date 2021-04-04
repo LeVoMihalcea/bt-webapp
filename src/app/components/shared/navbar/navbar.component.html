@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="app-header">
-  <div>Title</div>
+  <div [routerLink]="''">Title</div>
   <h2 class="env">{{this.env.name}}</h2>
   <span class="spacer"></span>
   <a mat-button routerLink="login" routerLinkActive="active" *ngIf="!authenticationService.currentUserValue">Log in</a>
@@ -8,6 +8,6 @@
   <div *ngIf="authenticationService.currentUserValue">
     {{authenticationService.currentUserValue.firstName + " " + authenticationService.currentUserValue.lastName}}
   </div>
-  <a mat-button mat-raised-button color="accent" (click)="navigateToJoinARoom()" *ngIf="authenticationService.currentUserValue">Join a Room</a>
   <a mat-button mat-raised-button (click)="logout()" *ngIf="authenticationService.currentUserValue">Log out</a>
 </mat-toolbar>
+

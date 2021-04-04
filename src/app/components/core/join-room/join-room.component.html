@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <h2>Create a Room</h2>
+        <h2>Join a Room</h2>
         <mat-form-field class="full-width-input">
           <input matInput placeholder="Join Code" formControlName="code" required>
           <mat-error>
@@ -12,7 +12,7 @@
         <mat-error class="invisible" [ngClass]="{'visible': this.error}">
           {{this.error}}
         </mat-error>
-        <button mat-raised-button color="primary">Create room</button>
+        <button mat-raised-button color="primary">Join room</button>
       </form>
     </mat-card-content>
   </mat-card>

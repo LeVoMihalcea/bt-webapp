@@ -1,18 +1,14 @@
 .container{
-  padding:16px;
+  padding: 16px;
+  width: 100%;
+  margin: 0 auto 0 auto;
 }
 
-.add-button{
-  position: fixed !important;
-  right: 15px;
-  bottom: 15px;
-  width: 75px;
-  height: 75px;
-  z-index: 2;
+span{
+  width: 100%;
+  height: 100%;
 }
 
-.example-header-image {
-  /*background-image: url('');*/
-  /*background-size: cover;*/
+.material-icons{
+  font-size: 300%;
 }
-

@@ -1,8 +1,12 @@
 <div class="container" fxLayout="row wrap" fxLayoutGap="16px grid">
-  <div class="card-container" *ngFor="let room of rooms" fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%">
+  <div class="card-container" *ngFor="let room of rooms" fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="50%">
     <mat-card class="card">
       <mat-card-header>
-        <!--        <div mat-card-avatar class="example-header-image"></div>-->
+        <div mat-card-avatar>
+          <span class="material-icons">
+            voice_chat
+          </span>
+        </div>
         <mat-card-title>{{room.name}}</mat-card-title>
         <mat-card-subtitle>{{room.type + " - " + room.host.firstName + " " + room.host.lastName}}</mat-card-subtitle>
       </mat-card-header>
@@ -19,8 +23,4 @@
     </mat-card>
   </div>
 </div>
-
-<button mat-fab color="primary" class="add-button" (click)="navigateToCreateRoom()">
-  <mat-icon>add</mat-icon>
-</button>
 
