@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/services/authentication.service';
 import {User} from '@app/components/domain/User';
-import {HealthService} from '@app/services/health.service';
 import {Room} from '@app/components/domain/Room';
 import {RoomService} from '@app/services/room.service';
 import {Router} from '@angular/router';
 import {ClipboardService} from 'ngx-clipboard';
+import {ErrorService} from '@app/services/error.service';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +21,8 @@ export class HomeComponent implements OnInit {
     public authenticationService: AuthenticationService,
     private roomService: RoomService,
     private router: Router,
-    private clipboardService: ClipboardService
+    private clipboardService: ClipboardService,
+    private errorService: ErrorService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
   }
@@ -30,7 +31,7 @@ export class HomeComponent implements OnInit {
     this.getRooms();
   }
 
-  getRooms(): void{
+  getRooms(): void {
     this.roomService.getRooms()
       .subscribe(
         data => {
@@ -53,5 +54,27 @@ export class HomeComponent implements OnInit {
 
   navigateToRoom(id: string): void {
     this.router.navigate(['room', id]);
+  }
+
+  deleteRoom(id: string): void {
+    this.roomService.deleteRoom(id)
+      .subscribe(data => {
+          console.log(data);
+          this.getRooms();
+        },
+        error => {
+          this.errorService.showError(error.message);
+        });
+  }
+
+  leaveRoom(id: string): void {
+    this.roomService.leaveRoom(id)
+      .subscribe(data => {
+          console.log(data);
+          this.getRooms();
+        },
+        error => {
+          this.errorService.showError(error.message);
+        });
   }
 }

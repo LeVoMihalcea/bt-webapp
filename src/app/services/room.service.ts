@@ -26,4 +26,12 @@ export class RoomService {
   joinRoom(code: string): Observable<any> {
     return this.http.post(`${environment.apiUrl}/room/join/` + code, null);
   }
+
+  deleteRoom(roomId: string): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/room/` + roomId);
+  }
+
+  leaveRoom(roomId: string): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/room/` + roomId + '/leave');
+  }
 }
