@@ -34,4 +34,8 @@ export class RoomService {
   leaveRoom(roomId: string): Observable<any> {
     return this.http.delete(`${environment.apiUrl}/room/` + roomId + '/leave');
   }
+
+  getRoomById(roomId: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/room/` + roomId);
+  }
 }

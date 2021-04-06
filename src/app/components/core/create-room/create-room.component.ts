@@ -36,7 +36,7 @@ export class CreateRoomComponent implements OnInit {
     const room = new Room(
       this.form.controls.name.value,
       this.form.controls.type.value,
-      this.form.controls.description.value
+      this.form.controls.description.value,
     );
 
     this.roomService.createRoom(room)

@@ -19,6 +19,8 @@ import { JoinRoomComponent } from './components/core/join-room/join-room.compone
 import { RoomComponent } from './components/core/room/room.component';
 import {environment} from '@environments/environment';
 import {AngularAgoraRtcModule} from 'angular-agora-rtc';
+import {CardModule} from 'primeng/card';
+import { ChatComponent } from './components/core/chat/chat.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -27,6 +29,7 @@ const routes: Routes = [
   {path: 'create', component: CreateRoomComponent},
   {path: 'join', component: JoinRoomComponent},
   {path: 'room/:id', component: RoomComponent},
+  {path: 'chat/:id', component: ChatComponent},
 ];
 
 @NgModule({
@@ -39,6 +42,7 @@ const routes: Routes = [
     CreateRoomComponent,
     JoinRoomComponent,
     RoomComponent,
+    ChatComponent,
   ],
   imports: [
     CommonModule,
@@ -50,7 +54,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     AngularMaterialModule,
     FlexLayoutModule,
-    AngularAgoraRtcModule.forRoot({AppID: environment.appId})
+    AngularAgoraRtcModule.forRoot({AppID: environment.appId}),
+    CardModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

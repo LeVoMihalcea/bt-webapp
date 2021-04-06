@@ -1,31 +1,49 @@
-<div class="container">
-  <div id="agora_local" class="videostream">
-  </div>
-  <div class="remote_calls videostream" *ngFor="let remote of remoteCalls;" [id]="remote">
-  </div>
-</div>
+<mat-card class="p-d-flex container-card mat-elevation-z4">
 
-<div class="controls">
-  <div class="inner-controls">
-    <button mat-icon-button (click)="exitCall()">
+  <div class="container p-mr-10">
+    <div id="agora_local" class="videostream"
+         [class.host]="isCurrentUserHost()">
+    </div>
+    <div class="remote_calls videostream" *ngFor="let remote of remoteCalls;" [id]="remote"
+         [class.host]="isCurrentUserHost()">
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="inner-controls">
+      <button mat-icon-button (click)="exitCall()">
       <span class="material-icons red-button">
         close
       </span>
-    </button>
-    <button mat-icon-button (click)="toggleMute()" [class.red-button]="videoState.micOff">
+      </button>
+      <button mat-icon-button (click)="toggleMute()" [class.red-button]="roomState.micOff">
       <span class="material-icons">
-        {{videoState.micOff ? 'mic_off' : 'mic'}}
+        {{roomState.micOff ? 'mic_off' : 'mic'}}
       </span>
-    </button>
-    <button mat-icon-button (click)="toggleVideo()" [class.red-button]="videoState.cameraOff">
+      </button>
+      <button mat-icon-button (click)="toggleVideo()" [class.red-button]="roomState.cameraOff">
       <span class="material-icons">
-       {{videoState.cameraOff ? 'videocam_off' : 'videocam'}}
+       {{roomState.cameraOff ? 'videocam_off' : 'videocam'}}
       </span>
-    </button>
-    <button mat-icon-button (click)="toggleSound()" [class.red-button]="videoState.soundOff">
+      </button>
+      <button mat-icon-button (click)="toggleSound()" [class.red-button]="roomState.soundOff">
       <span class="material-icons">
-        {{videoState.soundOff ? 'headset_off' : 'headset'}}
+        {{roomState.soundOff ? 'headset_off' : 'headset'}}
       </span>
-    </button>
+      </button>
+      <button mat-icon-button (click)="toggleChat()">
+      <a href="/chat/{{room.id}}" target="_blank">
+        <span class="material-icons">
+          {{roomState.chatOff ? 'speaker_notes_off' : 'chat'}}
+        </span>
+      </a>
+      </button>
+    </div>
   </div>
-</div>
+
+  <div class="p-mr-2">
+    chat
+  </div>
+</mat-card>
+
+

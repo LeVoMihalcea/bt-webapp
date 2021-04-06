@@ -13,4 +13,6 @@ export class Room {
     this.type = type;
     this.description = description;
   }
+
+
 }

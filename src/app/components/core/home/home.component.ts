@@ -15,7 +15,7 @@ import {ErrorService} from '@app/services/error.service';
 export class HomeComponent implements OnInit {
   public currentUser: User;
   public rooms: Room[] = [];
-  public maxLength = 25;
+  public maxLength = 50;
 
   constructor(
     public authenticationService: AuthenticationService,

@@ -2,10 +2,13 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/services/authentication.service';
 import {TokenService} from '@app/services/token.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {VideoState} from '@app/components/domain/VideoState';
+import {RoomState} from '@app/components/domain/RoomState';
 import {ClientConfig, ClientEvent, NgxAgoraService, Stream, StreamEvent, StreamSpec} from 'ngx-agora';
 import {AgoraClient} from 'ngx-agora/lib/data/models/agora-client.model';
 import {ErrorService} from '@app/services/error.service';
+import {RoomService} from '@app/services/room.service';
+import {Room} from '@app/components/domain/Room';
+import {SharedService} from '@app/services/shared.service';
 
 @Component({
   selector: 'app-room',
@@ -20,7 +23,9 @@ export class RoomComponent implements OnInit, OnDestroy {
     public tokenService: TokenService,
     private route: ActivatedRoute,
     private router: Router,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private roomService: RoomService,
+    private sharedService: SharedService
   ) {
     this.agoraService.createClient(
       RoomComponent.getConfig(),
@@ -31,15 +36,15 @@ export class RoomComponent implements OnInit, OnDestroy {
         this.errorService.showError('Something went wrong connecting to Agora');
       }
     );
-    this.videoState = new VideoState();
+    this.roomState = new RoomState();
   }
 
   private error = '';
   private token = '';
   private channelKey = '';
   private localStream: Stream;
-  public videoState: VideoState;
-  private agoraClient: AgoraClient;
+  public roomState: RoomState;
+  public room: Room;
   remoteCalls: any = [];
   breakpoint: any;
 
@@ -65,8 +70,19 @@ export class RoomComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.breakpoint = (window.innerWidth <= 400) ? 1 : 4;
-    this.route.params.subscribe(params => this.channelKey = params.id);
+    this.route.params.subscribe(params => {
+      this.channelKey = params.id;
+      this.sharedService.changeRoomId(this.channelKey);
+    });
+    this.roomService.getRoomById(this.channelKey)
+      .subscribe(
+        (data) => {
+          this.room = data;
+        },
+        error => {
+          this.errorService.showError(error.message);
+        }
+      );
     this.tokenService.askForToken(this.channelKey)
       .subscribe(
         data => {
@@ -96,6 +112,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.setEventListenerForRemoteStreamSubscribed();
     this.setEventListenerForRemoteStreamRemoved();
     this.setEventListenerForPeerLeave();
+    // this.setEventListenerForRemoteVideoMuted();
   }
 
   private setEventListenerForCameraAndMicrophoneAccess(): void {
@@ -173,26 +190,28 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   private setEventListenerForPeerLeave(): void {
-    this.agoraService.client.on(ClientEvent.PeerLeave, (evt) => {
+    this.agoraService.client.on(ClientEvent.StreamTypeChanged, (evt) => {
+      console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', evt);
       const stream = evt.stream as Stream;
-      if (stream) {
-        stream.stop();
-        this.remoteCalls = this.remoteCalls.filter(
-          (call) => call === `#agora_remote${stream.getId()}`
-        );
-        console.log(`${evt.uid} left from this channel`);
-      }
+      console.log('left' + evt);
+      // if (stream) {
+      //   stream.stop();
+      //   this.remoteCalls = this.remoteCalls.filter(
+      //     (call) => call === `#agora_remote${stream.getId()}`
+      //   );
+      //   console.log(`${evt.uid} left from this channel`);
+      // }
     });
   }
 
   exitCall(): void {
-    this.localStream.close();
+    this.localStream?.close();
     this.router.navigate(['']);
   }
 
   toggleMute(): void {
-    this.videoState.micOff = !this.videoState.micOff;
-    if (this.videoState.micOff) {
+    this.roomState.micOff = !this.roomState.micOff;
+    if (this.roomState.micOff) {
       this.localStream.muteAudio();
       return;
     }
@@ -200,8 +219,8 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   toggleVideo(): void {
-    this.videoState.cameraOff = !this.videoState.cameraOff;
-    if (this.videoState.cameraOff) {
+    this.roomState.cameraOff = !this.roomState.cameraOff;
+    if (this.roomState.cameraOff) {
       this.localStream.muteVideo();
       return;
     }
@@ -209,10 +228,24 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   toggleSound(): void {
-    this.videoState.soundOff = !this.videoState.soundOff;
-    if (this.videoState.soundOff){
+    this.roomState.soundOff = !this.roomState.soundOff;
+    if (this.roomState.soundOff) {
       this.localStream.setAudioVolume(0);
     }
     this.localStream.setAudioVolume(100);
+  }
+
+  isCurrentUserHost(): boolean {
+    return this.room.host.email === this.authenticationService.currentUserValue.email;
+  }
+
+  toggleChat(): void {
+    this.roomState.chatOff = !this.roomState.chatOff;
+  }
+
+  private setEventListenerForRemoteVideoMuted(): void {
+    this.agoraService.client.on(ClientEvent.RemoveVideoMuted, (evt) => {
+      console.log((document.getElementById('video' + evt.uid) as HTMLInputElement).replaceWith('<p> Test</p>'));
+    });
   }
 }

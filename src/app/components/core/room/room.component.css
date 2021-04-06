@@ -1,6 +1,11 @@
+.container-card{
+  height: 100%;
+  margin: 1% 1%;
+}
 
 .container{
   display: grid;
+  width: 20%;
   grid-gap: 16px;
   grid-template-columns: repeat(auto-fill, minmax(400px, 2fr));
   align-items: center;
@@ -15,7 +20,6 @@
 
 .videostream{
   margin: 50px;
-  width: 400px;
   height: 250px;
   border: 1px solid darkgray;
   border-radius: 10px;
@@ -43,4 +47,17 @@ button{
 
 .red-button{
   color: red;
+}
+
+.host{
+  /*border: 1px solid darkgray;*/
+}
+
+.grayed-out-text{
+  color: gray;
+}
+
+a{
+  text-decoration: none;
+  color: white;
 }
