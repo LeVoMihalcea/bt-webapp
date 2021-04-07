@@ -21,6 +21,7 @@ import {environment} from '@environments/environment';
 import {AngularAgoraRtcModule} from 'angular-agora-rtc';
 import {CardModule} from 'primeng/card';
 import { ChatComponent } from './components/core/chat/chat.component';
+import {WebcamModule} from 'ngx-webcam';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -29,7 +30,6 @@ const routes: Routes = [
   {path: 'create', component: CreateRoomComponent},
   {path: 'join', component: JoinRoomComponent},
   {path: 'room/:id', component: RoomComponent},
-  {path: 'chat/:id', component: ChatComponent},
 ];
 
 @NgModule({
@@ -55,7 +55,8 @@ const routes: Routes = [
     AngularMaterialModule,
     FlexLayoutModule,
     AngularAgoraRtcModule.forRoot({AppID: environment.appId}),
-    CardModule
+    CardModule,
+    WebcamModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

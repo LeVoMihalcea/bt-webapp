@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/services/authentication.service';
 import {Router} from '@angular/router';
 import {environment} from '@environments/environment';
-import {SharedService} from '@app/services/shared.service';
 
 @Component({
     selector: 'app-navbar',
@@ -17,7 +16,6 @@ export class NavbarComponent implements OnInit {
 
     constructor(
       authenticationService: AuthenticationService,
-      public sharedService: SharedService,
       router: Router,
       ) {
         this.authenticationService = authenticationService;
@@ -33,6 +31,6 @@ export class NavbarComponent implements OnInit {
     }
 
     navigateToJoinARoom(): void {
-        this.router.navigate(['join']);
+        this.router.navigate(['join']).then(r => {});
     }
 }

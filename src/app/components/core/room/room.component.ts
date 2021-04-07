@@ -4,11 +4,13 @@ import {TokenService} from '@app/services/token.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RoomState} from '@app/components/domain/RoomState';
 import {ClientConfig, ClientEvent, NgxAgoraService, Stream, StreamEvent, StreamSpec} from 'ngx-agora';
-import {AgoraClient} from 'ngx-agora/lib/data/models/agora-client.model';
 import {ErrorService} from '@app/services/error.service';
 import {RoomService} from '@app/services/room.service';
 import {Room} from '@app/components/domain/Room';
 import {SharedService} from '@app/services/shared.service';
+import {Observable, Subject, Subscription, interval} from 'rxjs';
+import {WebcamImage} from 'ngx-webcam';
+import {ImageService} from '@app/services/image.service';
 
 @Component({
   selector: 'app-room',
@@ -25,7 +27,8 @@ export class RoomComponent implements OnInit, OnDestroy {
     private router: Router,
     private errorService: ErrorService,
     private roomService: RoomService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private imageService: ImageService
   ) {
     this.agoraService.createClient(
       RoomComponent.getConfig(),
@@ -45,6 +48,9 @@ export class RoomComponent implements OnInit, OnDestroy {
   private localStream: Stream;
   public roomState: RoomState;
   public room: Room;
+  public messages: string[];
+  private trigger: Subject<void> = new Subject<void>();
+  private triggerTimerSubscription: Subscription;
   remoteCalls: any = [];
   breakpoint: any;
 
@@ -70,6 +76,19 @@ export class RoomComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    this.messages = [];
+    this.messages.push('abc');
+    this.messages.push('abc');
+    this.messages.push('abc');
+    this.messages.push('abc');
+    this.messages.push('abc');
+    this.messages.push('abc');
+    this.messages.push('abc');
+    console.log('triggered');
+    this.triggerTimerSubscription = interval(10000).subscribe(x => {
+      console.log('triggered');
+      this.trigger.next();
+    });
     this.route.params.subscribe(params => {
       this.channelKey = params.id;
       this.sharedService.changeRoomId(this.channelKey);
@@ -247,5 +266,24 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.agoraService.client.on(ClientEvent.RemoveVideoMuted, (evt) => {
       console.log((document.getElementById('video' + evt.uid) as HTMLInputElement).replaceWith('<p> Test</p>'));
     });
+  }
+
+  public triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+  triggerSnapshot(): void {
+    this.trigger.next();
+  }
+
+  handleImage($event: WebcamImage): void {
+    console.log($event);
+    this.imageService.sendImage($event.imageAsDataUrl)
+      .subscribe(data => {
+        this.messages.push(data);
+      },
+      error => {
+        this.errorService.showError(error);
+      });
   }
 }

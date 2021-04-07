@@ -29,6 +29,7 @@
     "angular-agora-rtc": "^0.1.0",
     "ngx-agora": "^2.0.1",
     "ngx-clipboard": "^14.0.1",
+    "ngx-webcam": "^0.3.2",
     "primeicons": "^4.1.0",
     "primeng": "^11.3.1",
     "rxjs": "~6.6.0",

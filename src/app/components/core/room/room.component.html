@@ -32,18 +32,15 @@
       </span>
       </button>
       <button mat-icon-button (click)="toggleChat()">
-      <a href="/chat/{{room.id}}" target="_blank">
-        <span class="material-icons">
-          {{roomState.chatOff ? 'speaker_notes_off' : 'chat'}}
-        </span>
-      </a>
+      <span class="material-icons">
+        {{roomState.chatOff ? 'speaker_notes_off' : 'chat'}}
+      </span>
       </button>
     </div>
   </div>
 
-  <div class="p-mr-2">
-    chat
-  </div>
+  <webcam [trigger]="triggerObservable()" (imageCapture)="handleImage($event)"></webcam>
+  <app-chat class="chat" [messages]="this.messages"></app-chat>
 </mat-card>
 
 

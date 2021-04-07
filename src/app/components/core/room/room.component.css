@@ -13,6 +13,11 @@
 }
 
 #agora_local{
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  height: 250px;
+  width: 300px;
 }
 
 .remote_calls{
@@ -60,4 +65,16 @@ button{
 a{
   text-decoration: none;
   color: white;
+}
+
+.chat{
+  position: absolute;
+  right: 0;
+  top: 200px;
+  width: 300px;
+  height: auto;
+}
+
+webcam{
+  display: none;
 }
