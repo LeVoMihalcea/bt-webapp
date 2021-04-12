@@ -77,10 +77,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.messages = [];
-    this.messages.push('abc');
-    this.messages.push('abc');
-    this.messages.push('abc');
-    this.messages.push('abc');
+    this.imageService.connect();
     this.messages.push('abc');
     this.messages.push('abc');
     this.messages.push('abc');
@@ -277,13 +274,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   handleImage($event: WebcamImage): void {
-    console.log($event);
-    this.imageService.sendImage($event.imageAsDataUrl)
-      .subscribe(data => {
-        this.messages.push(data);
-      },
-      error => {
-        this.errorService.showError(error);
-      });
+    console.log('!!!', $event);
+    this.imageService.send($event.imageAsDataUrl);
   }
 }

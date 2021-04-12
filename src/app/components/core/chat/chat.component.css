@@ -1,0 +1,9 @@
+.container{
+  height: 300px;
+  overflow-y: scroll;
+  opacity: 0.5;
+}
+
+.container:hover{
+  opacity: 1.0;
+}
