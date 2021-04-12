@@ -19,7 +19,7 @@ export class ImageService {
   }
 
   connect(): void {
-    console.log('Initialize WebSocket Connection');
+    console.log('Initialize WebSocket Connection', this.webSocketEndPoint);
     const ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
     const thisCiudat = this;
