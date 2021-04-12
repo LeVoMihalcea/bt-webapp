@@ -28,7 +28,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     private errorService: ErrorService,
     private roomService: RoomService,
     private sharedService: SharedService,
-    private imageService: ImageService
+    public imageService: ImageService
   ) {
     this.agoraService.createClient(
       RoomComponent.getConfig(),
