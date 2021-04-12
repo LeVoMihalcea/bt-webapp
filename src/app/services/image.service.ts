@@ -1,17 +1,12 @@
 import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
-import {EMPTY, Subject} from 'rxjs';
-import {WebSocketSubject} from 'rxjs/internal-compatibility';
-import {catchError, switchAll, tap} from 'rxjs/operators';
-import {webSocket} from 'rxjs/webSocket';
 import * as SockJS from 'sockjs-client';
-import {CompatClient, Stomp} from '@stomp/stompjs';
+import {Stomp} from '@stomp/stompjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageService {
-  webSocketEndPoint = 'http://localhost:19580/analyse';
   topic = '/topic/AI-responses';
   stompClient: any;
 
@@ -19,8 +14,8 @@ export class ImageService {
   }
 
   connect(): void {
-    console.log('Initialize WebSocket Connection', this.webSocketEndPoint);
-    const ws = new SockJS(this.webSocketEndPoint);
+    console.log('Initialize WebSocket Connection', environment.socketUrl);
+    const ws = new SockJS(environment.socketUrl);
     this.stompClient = Stomp.over(ws);
     const thisCiudat = this;
     thisCiudat.stompClient.connect({}, (frame) => {
