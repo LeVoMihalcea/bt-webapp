@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   name: 'DEV',
   apiUrl: 'https://bt-backend.sudo.rocks',
+  socketUrl: 'http://localhost:19580/analyse',
   agoraTokenApiUrl: 'https://bt-tokenizer.sudo.rocks',
   appId: '5b6c486a6cdc41e2829544fb59a24761'
 };
