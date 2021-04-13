@@ -39,7 +39,7 @@
     </div>
   </div>
 
-  <webcam [trigger]="triggerObservable()" [imageQuality]="0.60" (imageCapture)="handleImage($event)"></webcam>
+  <webcam [trigger]="triggerObservable()" [imageQuality]="0.50" (imageCapture)="handleImage($event)"></webcam>
   <app-chat class="chat" [messages]="this.imageService.messages" *ngIf="!this.roomState.chatOff"></app-chat>
 </mat-card>
 
