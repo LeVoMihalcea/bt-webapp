@@ -3,7 +3,7 @@
     <mat-card class="card">
       <mat-card-header>
         <div mat-card-avatar>
-          <span class="material-icons">
+          <span class="title-material-icons material-icons">
             voice_chat
           </span>
         </div>
@@ -30,26 +30,29 @@
   </div>
 </div>
 
-<mat-card *ngIf="this.rooms.length === 0" class="info-card">
-  <mat-card-header>
-    <div mat-card-avatar>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <mat-card *ngIf="this.rooms.length === 0" class="info-card">
+    <mat-card-header>
+      <div mat-card-avatar>
         <span class="material-icons">
           home
         </span>
-    </div>
-    <mat-card-title>Welcome to {{this.title}}</mat-card-title>
-    <mat-card-subtitle>Information</mat-card-subtitle>
-  </mat-card-header>
-  <hr>
-  <mat-card-content>
-    <h3>
-      Looks like you are not in any rooms yet.<br>
-      You can use the buttons on the left side to either:
-      <ul>
-        <li>Create a Room of your own</li>
-        <li>Join a Room of someone else</li>
-      </ul>
-    </h3>
-  </mat-card-content>
-</mat-card>
+      </div>
+      <mat-card-title>Welcome to {{this.title}}</mat-card-title>
+      <mat-card-subtitle>Information</mat-card-subtitle>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+      <h3>
+        Looks like you are not in any rooms yet.<br>
+        You can use the buttons on the left side to either:
+        <ul>
+          <li>Create a Room of your own</li>
+          <li>Join a Room of someone else</li>
+        </ul>
+      </h3>
+    </mat-card-content>
+  </mat-card>
+
+</div>
 
