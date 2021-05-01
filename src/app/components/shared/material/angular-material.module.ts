@@ -34,6 +34,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSlideToggle, MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {NgxMatDatetimePickerModule} from '@angular-material-components/datetime-picker';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 const materialModules = [
   CdkTreeModule,
@@ -69,7 +70,8 @@ const materialModules = [
   MatDatepickerModule,
   MatTooltipModule,
   MatSlideToggleModule,
-  NgxMatDatetimePickerModule
+  NgxMatDatetimePickerModule,
+  MatProgressBarModule
 ];
 
 @NgModule({

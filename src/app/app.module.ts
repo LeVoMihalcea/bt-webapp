@@ -12,7 +12,6 @@ import {AuthGuard} from '@app/components/_helpers/guards/auth.guard';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularMaterialModule} from '@app/components/shared/material/angular-material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {NavbarComponent} from './components/shared/navbar/navbar.component';
 import {CommonModule} from '@angular/common';
 import {CreateRoomComponent} from './components/core/create-room/create-room.component';
 import { JoinRoomComponent } from './components/core/join-room/join-room.component';
@@ -28,9 +27,9 @@ const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'create', component: CreateRoomComponent},
-  {path: 'join', component: JoinRoomComponent},
-  {path: 'room/:id', component: RoomComponent},
+  {path: 'create', component: CreateRoomComponent, canActivate: [AuthGuard]},
+  {path: 'join', component: JoinRoomComponent, canActivate: [AuthGuard]},
+  {path: 'room/:id', component: RoomComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
@@ -39,7 +38,6 @@ const routes: Routes = [
     HomeComponent,
     RegisterComponent,
     LoginComponent,
-    NavbarComponent,
     CreateRoomComponent,
     JoinRoomComponent,
     RoomComponent,

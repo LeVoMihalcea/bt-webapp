@@ -79,10 +79,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.messages = [];
-    // this.imageService.connect();
-    this.messages.push('abc');
-    this.messages.push('abc');
-    this.messages.push('abc');
+    this.imageService.connect();
     console.log('triggered');
     this.triggerTimerSubscription = interval(10000).subscribe(x => {
       console.log('triggered');

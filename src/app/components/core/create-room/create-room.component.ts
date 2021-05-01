@@ -16,6 +16,7 @@ export class CreateRoomComponent implements OnInit {
   scheduledMeeting: boolean;
   date: any;
   recurrentMeeting: boolean;
+  loading: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,6 +38,8 @@ export class CreateRoomComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.loading = true;
+
     if (this.form.invalid) {
       return;
     }
@@ -59,9 +62,11 @@ export class CreateRoomComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
+          this.loading = false;
           this.router.navigate(['']);
         },
         error => {
+          this.loading = false;
           console.log('something went wrong', error);
           this.error = error;
         });
