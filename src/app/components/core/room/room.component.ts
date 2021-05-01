@@ -11,6 +11,7 @@ import {SharedService} from '@app/services/shared.service';
 import {Observable, Subject, Subscription, interval} from 'rxjs';
 import {WebcamImage} from 'ngx-webcam';
 import {ImageService} from '@app/services/image.service';
+import {ClipboardService} from 'ngx-clipboard';
 
 @Component({
   selector: 'app-room',
@@ -28,7 +29,8 @@ export class RoomComponent implements OnInit, OnDestroy {
     private errorService: ErrorService,
     private roomService: RoomService,
     private sharedService: SharedService,
-    public imageService: ImageService
+    public imageService: ImageService,
+    public clipboardService: ClipboardService
   ) {
     this.agoraService.createClient(
       RoomComponent.getConfig(),
@@ -77,7 +79,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.messages = [];
-    this.imageService.connect();
+    // this.imageService.connect();
     this.messages.push('abc');
     this.messages.push('abc');
     this.messages.push('abc');
@@ -178,6 +180,8 @@ export class RoomComponent implements OnInit, OnDestroy {
   private setEventListenerForRemoteStreamsAdded(): void {
     this.agoraService.client.on(ClientEvent.RemoteStreamAdded, (evt) => {
       const stream = evt.stream as Stream;
+      console.log('Remote Stream Added evt:', evt);
+      console.log('Stream Id', evt.stream.getId());
       this.agoraService.client.subscribe(stream, null, (err) => {
         this.errorService.showError('Subscribe stream failed' + err);
       });
@@ -276,5 +280,9 @@ export class RoomComponent implements OnInit, OnDestroy {
   handleImage($event: WebcamImage): void {
     console.log('!!!', $event);
     this.imageService.send($event.imageAsDataUrl);
+  }
+
+  copyIdToClipboard(id: string): void {
+    this.clipboardService.copy(id);
   }
 }

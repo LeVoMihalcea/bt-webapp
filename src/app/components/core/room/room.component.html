@@ -1,12 +1,25 @@
 <mat-card class="p-d-flex container-card mat-elevation-z4">
 
+  <mat-card-title>
+      {{room.name}}
+      <mat-icon matTooltip="Host: {{room.host.lastName}} {{room.host.firstName}}">info</mat-icon>
+      <mat-icon (click)="copyIdToClipboard(room.id)" matTooltip="Copy Join Code">file_copy</mat-icon>
+  </mat-card-title>
+
   <div class="container p-mr-10">
-    <div id="agora_local" class="videostream"
-         [class.host]="isCurrentUserHost()">
+    <div class="videostream-container">
+      <div id="agora_local" class="videostream"
+           [class.host]="isCurrentUserHost()">
+      </div>
     </div>
-    <div class="remote_calls videostream" *ngFor="let remote of remoteCalls;" [id]="remote"
-         [class.host]="isCurrentUserHost()">
+    <div class="videostream-container" *ngFor="let remote of remoteCalls;" >
+      <div class="remote_calls videostream" [id]="remote"
+           [class.host]="isCurrentUserHost()">
+      </div>
+
     </div>
+
+
   </div>
 
   <div class="controls">

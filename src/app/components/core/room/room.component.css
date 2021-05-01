@@ -1,9 +1,9 @@
-.container-card{
+.container-card {
   height: 100%;
   margin: 1% 1%;
 }
 
-.container{
+.container {
   display: grid;
   width: 20%;
   grid-gap: 16px;
@@ -12,7 +12,7 @@
   justify-content: space-between;
 }
 
-#agora_local{
+#agora_local {
   /*position: absolute;*/
   /*bottom: 50px;*/
   /*right: 50px;*/
@@ -20,10 +20,10 @@
   /*width: 300px;*/
 }
 
-.remote_calls{
+.remote_calls {
 }
 
-.videostream{
+.videostream {
   margin: 50px;
   height: 250px;
   border: 1px solid darkgray;
@@ -31,43 +31,47 @@
   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }
 
-.controls{
+.username {
+}
+
+
+.controls {
   position: absolute !important;
   left: 50%;
   bottom: 100px;
 }
 
-.inner-controls{
+.inner-controls {
   background-color: black;
   border-radius: 25px;
   position: relative;
   left: -50%;
 }
 
-button{
+button {
   margin: 0 auto 0 auto;
   width: 50px;
   height: 50px;
 }
 
-.red-button{
+.red-button {
   color: red;
 }
 
-.host{
+.host {
   /*border: 1px solid darkgray;*/
 }
 
-.grayed-out-text{
+.grayed-out-text {
   color: gray;
 }
 
-a{
+a {
   text-decoration: none;
   color: white;
 }
 
-.chat{
+.chat {
   position: absolute;
   right: 0;
   top: 200px;
@@ -75,6 +79,10 @@ a{
   height: auto;
 }
 
-webcam{
+webcam {
   display: none;
+}
+
+mat-card-title > mat-icon {
+  cursor: pointer;
 }
