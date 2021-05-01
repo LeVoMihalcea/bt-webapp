@@ -11,30 +11,18 @@ import {Room} from '@app/components/domain/Room';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'webapp';
+  private title = 'bt-webapp';
   darkTheme: boolean;
-  hideNavbar: boolean;
-  roomId: string;
-  room: Room;
-
-  subscription: Subscription;
 
   constructor(
     public authenticationService: AuthenticationService,
     public sharedService: SharedService,
-    public roomService: RoomService
-  ) {
-    this.room = new Room('', '', '');
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.subscription = this.sharedService.currentMessage.subscribe(roomId => {
-      // if (roomId.length !== 0 && this.authenticationService.currentUserValue.email.length !== 0) {
-      //   this.roomService.getRoomById(roomId).subscribe(
-      //     room => this.room = room
-      //   );
-      // }
-    });
   }
 
+  getTitle(): string {
+    return this.title;
+  }
 }

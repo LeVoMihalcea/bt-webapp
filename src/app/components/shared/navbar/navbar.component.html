@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="app-header">
-  <div [routerLink]="''">Title</div>
+  <div [routerLink]="''">{{this.title}}</div>
   <h2 class="env">{{this.env.name}}</h2>
   <span class="spacer"></span>
   <a mat-button routerLink="login" routerLinkActive="active" *ngIf="!authenticationService.currentUserValue">Log in</a>

@@ -6,6 +6,7 @@ import {RoomService} from '@app/services/room.service';
 import {Router} from '@angular/router';
 import {ClipboardService} from 'ngx-clipboard';
 import {ErrorService} from '@app/services/error.service';
+import {AppComponent} from '@app/app.component';
 
 @Component({
   selector: 'app-home',
@@ -16,15 +17,18 @@ export class HomeComponent implements OnInit {
   public currentUser: User;
   public rooms: Room[] = [];
   public maxLength = 50;
+  public title: string;
 
   constructor(
     public authenticationService: AuthenticationService,
     private roomService: RoomService,
     private router: Router,
     private clipboardService: ClipboardService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private appComponent: AppComponent
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
+    this.title = appComponent.getTitle();
   }
 
   ngOnInit(): void {

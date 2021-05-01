@@ -18,11 +18,10 @@ export class ImageService {
     console.log('Initialize WebSocket Connection', environment.socketUrl);
     const ws = new SockJS(environment.socketUrl);
     this.stompClient = Stomp.over(ws);
-    const thisCiudat = this;
-    thisCiudat.stompClient.connect({}, (frame) => {
-
-      thisCiudat.stompClient.subscribe(thisCiudat.topic, (sdkEvent) => {
-        thisCiudat.onMessageReceived(sdkEvent);
+    const thisSnapshot = this;
+    thisSnapshot.stompClient.connect({}, (frame) => {
+      thisSnapshot.stompClient.subscribe(thisSnapshot.topic, (sdkEvent) => {
+        thisSnapshot.onMessageReceived(sdkEvent);
       });
     }, this.errorCallBack);
   }
