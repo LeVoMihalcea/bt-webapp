@@ -24,6 +24,60 @@
             Please provide a valid room description
           </mat-error>
         </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Meeting Length</mat-label>
+          <mat-select formControlName="hours">
+            <mat-option value="1">1 Hour</mat-option>
+            <mat-option value="2">2 Hours</mat-option>
+            <mat-option value="3">3 Hours</mat-option>
+            <mat-option value="4">4 Hours</mat-option>
+            <mat-option value="5">5 Hours</mat-option>
+            <mat-option value="6">6 Hours</mat-option>
+            <mat-option value="7">7 Hours</mat-option>
+            <mat-option value="8">8 Hours</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-slide-toggle color="primary" (toggleChange)="scheduledMeeting = !scheduledMeeting">Scheduled Meeting</mat-slide-toggle>
+        <br>
+
+        <div class="scheduler" *ngIf="scheduledMeeting">
+          <mat-form-field>
+            <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" formControlName="firstDateTime">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #picker>
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+
+          <mat-slide-toggle color="primary" (toggleChange)="recurrentMeeting = !recurrentMeeting">Recurrent Meeting</mat-slide-toggle>
+          <br>
+
+          <div *ngIf="recurrentMeeting">
+            <mat-form-field appearance="fill">
+              <mat-label>Recurrence</mat-label>
+              <mat-select formControlName="timeUnit">
+                <mat-option value="DAILY">Daily</mat-option>
+                <mat-option value="WEEKLY">Weekly</mat-option>
+                <mat-option value="MONTHLY">Monthly</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Number</mat-label>
+              <mat-select formControlName="repeatEvery">
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+                <mat-option value="6">6</mat-option>
+                <mat-option value="7">7</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
         <mat-error class="invisible" [ngClass]="{'visible': this.error}">
           {{this.error}}
         </mat-error>

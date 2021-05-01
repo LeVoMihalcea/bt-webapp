@@ -22,6 +22,7 @@ import {AngularAgoraRtcModule} from 'angular-agora-rtc';
 import {CardModule} from 'primeng/card';
 import { ChatComponent } from './components/core/chat/chat.component';
 import {WebcamModule} from 'ngx-webcam';
+import {NgxMatNativeDateModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -56,7 +57,9 @@ const routes: Routes = [
     FlexLayoutModule,
     AngularAgoraRtcModule.forRoot({AppID: environment.appId}),
     CardModule,
-    WebcamModule
+    WebcamModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

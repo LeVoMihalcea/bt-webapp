@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RoomService} from '@app/services/room.service';
 import {Room} from '@app/components/domain/Room';
 import {Router} from '@angular/router';
+import {RoomCalendarEntry} from '@app/components/domain/RoomCalendarEntry';
 
 @Component({
   selector: 'app-create-room',
@@ -12,6 +13,9 @@ import {Router} from '@angular/router';
 export class CreateRoomComponent implements OnInit {
   form: FormGroup;
   error: string;
+  scheduledMeeting: boolean;
+  date: any;
+  recurrentMeeting: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,7 +28,11 @@ export class CreateRoomComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       type: ['', [Validators.required]],
-      description: ['', [Validators.required]]
+      description: ['', [Validators.required]],
+      firstDateTime: ['', []],
+      hours: ['', []],
+      repeatEvery: ['', []],
+      timeUnit: ['', []]
     });
   }
 
@@ -33,10 +41,18 @@ export class CreateRoomComponent implements OnInit {
       return;
     }
 
+    const roomCalendarEntry = new RoomCalendarEntry(
+      this.form.controls.firstDateTime.value ? this.form.controls.firstDateTime.value : new Date().toISOString().toString(),
+      this.form.controls.hours.value ? this.form.controls.hours.value : 2,
+      this.form.controls.repeatEvery.value ? this.form.controls.repeatEvery.value : 0,
+      this.form.controls.timeUnit.value ? this.form.controls.timeUnit.value : 'WEEKLY',
+    );
+
     const room = new Room(
       this.form.controls.name.value,
       this.form.controls.type.value,
       this.form.controls.description.value,
+      roomCalendarEntry
     );
 
     this.roomService.createRoom(room)
