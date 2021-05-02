@@ -1,27 +1,20 @@
-.container-card {
-  height: 100%;
-  margin: 1% 1%;
+.container {
+  padding: 16px;
+  width: 100%;
+  margin: 0 auto 0 auto;
 }
 
-.container {
-  display: grid;
-  width: 20%;
-  grid-gap: 16px;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 2fr));
-  align-items: center;
-  justify-content: space-between;
+.card{
+  min-width: 400px;
+  min-height: 400px;
 }
 
 #agora_local {
-  /*position: absolute;*/
-  /*bottom: 50px;*/
-  /*right: 50px;*/
-  /*height: 250px;*/
-  /*width: 300px;*/
   height: 300px;
 }
 
 .remote_calls {
+  height: 300px;
 }
 
 .videostream {
@@ -31,10 +24,6 @@
   border-radius: 10px;
   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }
-
-.username {
-}
-
 
 .controls {
   position: absolute !important;
@@ -59,14 +48,6 @@ button {
   color: red;
 }
 
-.host {
-  /*border: 1px solid darkgray;*/
-}
-
-.grayed-out-text {
-  color: gray;
-}
-
 a {
   text-decoration: none;
   color: white;
@@ -84,11 +65,6 @@ webcam {
   display: none;
 }
 
-mat-card-title > mat-icon {
-  cursor: pointer;
-}
-
-.card{
-  min-width: 400px;
-  min-height: 400px;
+.title-material-icons{
+  font-size: 300%;
 }

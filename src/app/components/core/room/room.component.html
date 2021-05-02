@@ -1,14 +1,15 @@
-<h3>{{room.name}}</h3>
+<h2>{{room.name}}
 <mat-icon matTooltip="Host: {{room.host.lastName}} {{room.host.firstName}}">info</mat-icon>
 <mat-icon (click)="copyIdToClipboard(room.id)" matTooltip="Copy Join Code">file_copy</mat-icon>
+</h2>
 
-<div class="container" fxLayout="row wrap" fxLayoutGap="16px grid">
-  <div class="card-container" fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="50%">
+<div class="container" fxLayout="row" fxLayoutGap="16px grid">
+  <div class="card-container" fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%">
     <mat-card class="card">
       <mat-card-header>
         <div mat-card-avatar>
           <span class="title-material-icons material-icons">
-            voice_chat
+            account_circle
           </span>
         </div>
         <mat-card-title>{{authenticationService.currentUserValue.firstName + " " + authenticationService.currentUserValue.lastName}}</mat-card-title>
@@ -27,7 +28,7 @@
         <mat-card-header>
           <div mat-card-avatar>
             <span class="title-material-icons material-icons">
-              voice_chat
+              account_circle
             </span>
           </div>
           <mat-card-title>{{remoteCall.user?.firstName + remoteCall.user?.lastName}}</mat-card-title>
@@ -36,7 +37,6 @@
         <mat-card-content>
           <div class="remote_calls" [id]="remoteCall.stream"
                [class.host]="isCurrentUserHost()">
-
           </div>
         </mat-card-content>
       </mat-card>
