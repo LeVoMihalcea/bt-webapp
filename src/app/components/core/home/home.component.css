@@ -13,11 +13,6 @@ span{
   font-size: 300%;
 }
 
-.info-card{
-  width: 30%;
-  margin: 50px auto 0 auto;
-}
-
 .info-card > mat-card-content{
   padding: 50px 0 50px 0;
 }
