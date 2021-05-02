@@ -8,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ChatComponent implements OnInit {
 
   @Input()
-  public messages: string[];
+  public messages: any[];
 
   constructor() { }
 

@@ -1,61 +1,80 @@
-<mat-card class="p-d-flex container-card mat-elevation-z4">
+<h3>{{room.name}}</h3>
+<mat-icon matTooltip="Host: {{room.host.lastName}} {{room.host.firstName}}">info</mat-icon>
+<mat-icon (click)="copyIdToClipboard(room.id)" matTooltip="Copy Join Code">file_copy</mat-icon>
 
-  <mat-card-title>
-      {{room.name}}
-      <mat-icon matTooltip="Host: {{room.host.lastName}} {{room.host.firstName}}">info</mat-icon>
-      <mat-icon (click)="copyIdToClipboard(room.id)" matTooltip="Copy Join Code">file_copy</mat-icon>
-  </mat-card-title>
+<div class="container" fxLayout="row wrap" fxLayoutGap="16px grid">
+  <div class="card-container" fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="50%">
+    <mat-card class="card">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <span class="title-material-icons material-icons">
+            voice_chat
+          </span>
+        </div>
+        <mat-card-title>{{authenticationService.currentUserValue.firstName + " " + authenticationService.currentUserValue.lastName}}</mat-card-title>
+        <mat-card-subtitle>{{authenticationService.currentUserValue.email}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="videostream-container">
+          <div id="agora_local" class="" [class.host]="isCurrentUserHost()">
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-  <div class="container p-mr-10">
-    <div class="videostream-container">
-      <div id="agora_local" class="videostream"
-           [class.host]="isCurrentUserHost()">
-      </div>
-      {{authenticationService.currentUserValue.firstName + " " + authenticationService.currentUserValue.lastName}}
+    <div *ngFor="let remoteCall of remoteCalls">
+      <mat-card class="card">
+        <mat-card-header>
+          <div mat-card-avatar>
+            <span class="title-material-icons material-icons">
+              voice_chat
+            </span>
+          </div>
+          <mat-card-title>{{remoteCall.user?.firstName + remoteCall.user?.lastName}}</mat-card-title>
+          <mat-card-subtitle>{{remoteCall.user?.email}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="remote_calls" [id]="remoteCall.stream"
+               [class.host]="isCurrentUserHost()">
+
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
-    <div class="videostream-container" *ngFor="let remoteCall of remoteCalls;" >
-      <div class="remote_calls videostream" [id]="remoteCall.stream"
-           [class.host]="isCurrentUserHost()">
-        {{remoteCall.user?.firstName + " " + remoteCall.user?.lastName}}
-      </div>
-
-    </div>
-
-
   </div>
+</div>
 
-  <div class="controls">
-    <div class="inner-controls">
-      <button mat-icon-button (click)="exitCall()">
+<div class="controls">
+  <div class="inner-controls">
+    <button mat-icon-button (click)="exitCall()">
       <span class="material-icons red-button">
         close
       </span>
-      </button>
-      <button mat-icon-button (click)="toggleMute()" [class.red-button]="roomState.micOff">
+    </button>
+    <button mat-icon-button (click)="toggleMute()" [class.red-button]="roomState.micOff">
       <span class="material-icons">
         {{roomState.micOff ? 'mic_off' : 'mic'}}
       </span>
-      </button>
-      <button mat-icon-button (click)="toggleVideo()" [class.red-button]="roomState.cameraOff">
+    </button>
+    <button mat-icon-button (click)="toggleVideo()" [class.red-button]="roomState.cameraOff">
       <span class="material-icons">
        {{roomState.cameraOff ? 'videocam_off' : 'videocam'}}
       </span>
-      </button>
-      <button mat-icon-button (click)="toggleSound()" [class.red-button]="roomState.soundOff">
+    </button>
+    <button mat-icon-button (click)="toggleSound()" [class.red-button]="roomState.soundOff">
       <span class="material-icons">
         {{roomState.soundOff ? 'headset_off' : 'headset'}}
       </span>
-      </button>
-      <button mat-icon-button (click)="toggleChat()">
+    </button>
+    <button mat-icon-button (click)="toggleChat()">
       <span class="material-icons">
         {{roomState.chatOff ? 'speaker_notes_off' : 'chat'}}
       </span>
-      </button>
-    </div>
+    </button>
   </div>
+</div>
 
-  <webcam [trigger]="triggerObservable()" [imageQuality]="0.10" (imageCapture)="handleImage($event)"></webcam>
-  <app-chat class="chat" [messages]="this.imageService.messages" *ngIf="!this.roomState.chatOff"></app-chat>
-</mat-card>
+<webcam [trigger]="triggerObservable()" [imageQuality]="0.10" (imageCapture)="handleImage($event)"></webcam>
+<app-chat class="chat" [messages]="this.imageService.messages" *ngIf="!this.roomState.chatOff"></app-chat>
 
 
