@@ -1,3 +1,5 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
 <div class="container" fxLayout="row wrap" fxLayoutGap="16px grid">
   <div class="card-container" *ngFor="let room of rooms" fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="50%">
     <mat-card class="card">
@@ -31,7 +33,7 @@
 </div>
 
 <div fxLayout="row" fxLayoutAlign="center center">
-  <mat-card *ngIf="this.rooms.length === 0" class="info-card">
+  <mat-card *ngIf="!loading && this.rooms.length === 0" class="info-card">
     <mat-card-header>
       <div mat-card-avatar>
         <span class="title-material-icons material-icons">

@@ -6,7 +6,7 @@
     </button>
     <div [routerLink]="''">{{this.title}}</div>
 
-    <h2 class="env" [style.visibility.hidden]="mobileQuery.matches">{{this.env.name}}</h2>
+    <h2 class="env" *ngIf="!mobileQuery.matches">{{this.env.name}}</h2>
     <span class="spacer"></span>
 
     <a mat-button routerLink="login" routerLinkActive="active" *ngIf="!authenticationService.currentUserValue">Log In</a>
@@ -15,11 +15,10 @@
     <div *ngIf="authenticationService.currentUserValue">
       {{authenticationService.currentUserValue.firstName + " " + authenticationService.currentUserValue.lastName}}
     </div>
-    <a mat-button mat-raised-button (click)="logout()" *ngIf="authenticationService.currentUserValue">Log Out</a>
+    <a mat-button mat-raised-button (click)="logout()" *ngIf="authenticationService.currentUserValue && !mobileQuery.matches">Log Out</a>
   </mat-toolbar>
 
-  <mat-sidenav-container class="sidenav-container"
-                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav [opened]="!mobileQuery.matches && this.authenticationService.currentUserValue != null"
                  [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>

@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   public rooms: Room[] = [];
   public maxLength = 50;
   public title: string;
+  loading: boolean;
 
   constructor(
     public authenticationService: AuthenticationService,
@@ -36,11 +37,13 @@ export class HomeComponent implements OnInit {
   }
 
   getRooms(): void {
+    this.loading = true;
     this.roomService.getRooms()
       .subscribe(
         data => {
           console.log(data);
           this.rooms = data;
+          this.loading = false;
         },
         error => {
           console.log(error);
