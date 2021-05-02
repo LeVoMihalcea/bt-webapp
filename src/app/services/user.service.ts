@@ -17,6 +17,7 @@ export class UserService {
   ) { }
 
   getUserDetails(id: number): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/users/id` + id.toString());
+    console.log('GET USER DETAILS!!!: ' + id);
+    return this.http.get(`${environment.apiUrl}/users/id` + id);
   }
 }

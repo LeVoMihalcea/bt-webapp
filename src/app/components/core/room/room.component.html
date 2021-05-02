@@ -11,6 +11,7 @@
       <div id="agora_local" class="videostream"
            [class.host]="isCurrentUserHost()">
       </div>
+      {{authenticationService.currentUserValue.firstName}}
     </div>
     <div class="videostream-container" *ngFor="let remote of remoteCalls;" >
       <div class="remote_calls videostream" [id]="remote"

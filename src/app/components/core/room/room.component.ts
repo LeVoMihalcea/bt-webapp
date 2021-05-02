@@ -184,11 +184,6 @@ export class RoomComponent implements OnInit, OnDestroy {
   private setEventListenerForRemoteStreamsAdded(): void {
     this.agoraService.client.on(ClientEvent.RemoteStreamAdded, (evt) => {
       const stream = evt.stream as Stream;
-
-      this.userService.getUserDetails(evt.stream.id).subscribe((user) => {
-        console.log(user);
-      });
-
       this.agoraService.client.subscribe(stream, null, (err) => {
         this.errorService.showError('Subscribe stream failed' + err);
       });
@@ -198,6 +193,11 @@ export class RoomComponent implements OnInit, OnDestroy {
   private setEventListenerForRemoteStreamSubscribed(): void {
     this.agoraService.client.on(ClientEvent.RemoteStreamSubscribed, (evt) => {
       const stream = evt.stream as Stream;
+
+      this.userService.getUserDetails(evt.stream.getId()).subscribe((user) => {
+        console.log(user);
+      });
+
       if (!this.remoteCalls.includes(`agora_remote${stream.getId()}`)) {
         this.remoteCalls.push(`agora_remote${stream.getId()}`);
       }
