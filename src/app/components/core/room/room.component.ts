@@ -12,6 +12,7 @@ import {Observable, Subject, Subscription, interval} from 'rxjs';
 import {WebcamImage} from 'ngx-webcam';
 import {ImageService} from '@app/services/image.service';
 import {ClipboardService} from 'ngx-clipboard';
+import {UserService} from '@app/services/user.service';
 
 @Component({
   selector: 'app-room',
@@ -30,7 +31,8 @@ export class RoomComponent implements OnInit, OnDestroy {
     private roomService: RoomService,
     private sharedService: SharedService,
     public imageService: ImageService,
-    public clipboardService: ClipboardService
+    public clipboardService: ClipboardService,
+    public userService: UserService
   ) {
     this.agoraService.createClient(
       RoomComponent.getConfig(),
@@ -54,6 +56,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   private trigger: Subject<void> = new Subject<void>();
   private triggerTimerSubscription: Subscription;
   remoteCalls: any = [];
+  remoteCallsUserMapping: [number, any][] = [];
   breakpoint: any;
 
   private static getConfig(): ClientConfig {
@@ -74,6 +77,8 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.localStream.close();
+    this.triggerTimerSubscription.unsubscribe();
+    this.imageService.disconnect();
   }
 
 
@@ -179,8 +184,11 @@ export class RoomComponent implements OnInit, OnDestroy {
   private setEventListenerForRemoteStreamsAdded(): void {
     this.agoraService.client.on(ClientEvent.RemoteStreamAdded, (evt) => {
       const stream = evt.stream as Stream;
-      console.log('Remote Stream Added evt:', evt);
-      console.log('Stream Id', evt.stream.getId());
+
+      this.userService.getUserDetails(evt.stream.id).subscribe((user) => {
+        console.log(user);
+      });
+
       this.agoraService.client.subscribe(stream, null, (err) => {
         this.errorService.showError('Subscribe stream failed' + err);
       });

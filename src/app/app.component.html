@@ -10,12 +10,13 @@
     <span class="spacer"></span>
 
     <a mat-button routerLink="login" routerLinkActive="active" *ngIf="!authenticationService.currentUserValue">Log In</a>
-    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active"
+    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active" class="log-button"
        *ngIf="!authenticationService.currentUserValue">Register</a>
     <div *ngIf="authenticationService.currentUserValue">
       {{authenticationService.currentUserValue.firstName + " " + authenticationService.currentUserValue.lastName}}
     </div>
-    <a mat-button mat-raised-button (click)="logout()" *ngIf="authenticationService.currentUserValue && !mobileQuery.matches">Log Out</a>
+    <a mat-button mat-raised-button class="log-button" (click)="logout()"
+       *ngIf="authenticationService.currentUserValue && !mobileQuery.matches">Log Out</a>
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav-container">
