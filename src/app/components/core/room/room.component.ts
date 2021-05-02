@@ -13,6 +13,7 @@ import {WebcamImage} from 'ngx-webcam';
 import {ImageService} from '@app/services/image.service';
 import {ClipboardService} from 'ngx-clipboard';
 import {UserService} from '@app/services/user.service';
+import {UserStream} from '@app/components/domain/UserStream';
 
 @Component({
   selector: 'app-room',
@@ -56,7 +57,6 @@ export class RoomComponent implements OnInit, OnDestroy {
   private trigger: Subject<void> = new Subject<void>();
   private triggerTimerSubscription: Subscription;
   remoteCalls: any = [];
-  remoteCallsUserMapping: [number, any][] = [];
   breakpoint: any;
 
   private static getConfig(): ClientConfig {
@@ -195,12 +195,11 @@ export class RoomComponent implements OnInit, OnDestroy {
       const stream = evt.stream as Stream;
 
       this.userService.getUserDetails(evt.stream.getId()).subscribe((user) => {
-        console.log(user);
+        if (!this.remoteCalls.includes(`agora_remote${stream.getId()}`)) {
+          this.remoteCalls.push(new UserStream(user, `agora_remote${stream.getId()}`));
+        }
       });
 
-      if (!this.remoteCalls.includes(`agora_remote${stream.getId()}`)) {
-        this.remoteCalls.push(`agora_remote${stream.getId()}`);
-      }
       setTimeout(() => stream.play(`agora_remote${stream.getId()}`), 1000);
     });
   }

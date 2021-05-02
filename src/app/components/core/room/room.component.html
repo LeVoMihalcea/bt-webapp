@@ -11,11 +11,12 @@
       <div id="agora_local" class="videostream"
            [class.host]="isCurrentUserHost()">
       </div>
-      {{authenticationService.currentUserValue.firstName}}
+      {{authenticationService.currentUserValue.firstName + " " + authenticationService.currentUserValue.lastName}}
     </div>
-    <div class="videostream-container" *ngFor="let remote of remoteCalls;" >
-      <div class="remote_calls videostream" [id]="remote"
+    <div class="videostream-container" *ngFor="let remoteCall of remoteCalls;" >
+      <div class="remote_calls videostream" [id]="remoteCall.stream"
            [class.host]="isCurrentUserHost()">
+        {{remoteCall.user?.firstName + " " + remoteCall.user?.lastName}}
       </div>
 
     </div>
