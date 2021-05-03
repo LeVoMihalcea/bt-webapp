@@ -14,6 +14,9 @@ import {ImageService} from '@app/services/image.service';
 import {ClipboardService} from 'ngx-clipboard';
 import {UserService} from '@app/services/user.service';
 import {UserStream} from '@app/components/domain/UserStream';
+import {MatOptionSelectionChange} from '@angular/material/core';
+import {RoomDialogComponent} from '@app/components/core/room-dialog/room-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-room',
@@ -23,7 +26,7 @@ import {UserStream} from '@app/components/domain/UserStream';
 export class RoomComponent implements OnInit, OnDestroy {
 
   constructor(
-    private agoraService: NgxAgoraService,
+    public agoraService: NgxAgoraService,
     public authenticationService: AuthenticationService,
     public tokenService: TokenService,
     private route: ActivatedRoute,
@@ -33,7 +36,8 @@ export class RoomComponent implements OnInit, OnDestroy {
     private sharedService: SharedService,
     public imageService: ImageService,
     public clipboardService: ClipboardService,
-    public userService: UserService
+    public userService: UserService,
+    public dialog: MatDialog
   ) {
     this.agoraService.createClient(
       RoomComponent.getConfig(),
@@ -208,6 +212,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.agoraService.client.on(ClientEvent.RemoteStreamRemoved, (evt) => {
       const stream = evt.stream as Stream;
       stream.stop();
+      console.log(this.remoteCalls);
       this.remoteCalls = this.remoteCalls.filter(
         (call) => call !== `#agora_remote${stream.getId()}`
       );
@@ -291,4 +296,21 @@ export class RoomComponent implements OnInit, OnDestroy {
   copyIdToClipboard(id: string): void {
     this.clipboardService.copy(id);
   }
+
+  changeCamera($event: MatOptionSelectionChange): void {
+    console.log($event);
+    this.localStream.switchDevice('video', $event.source.value.deviceId,
+      () => console.log('SUCCESS'), () => console.log('FAILURE'));
+  }
+
+  openSettings(): void {
+    const dialogRef = this.dialog.open(RoomDialogComponent, {width: '20%'});
+    dialogRef.afterClosed().subscribe((settings) => {
+      console.log(settings);
+      if(settings.videoDeviceId !== undefined)
+      this.localStream.switchDevice('video', settings.videoDeviceId);
+      this.localStream.switchDevice('audio', settings.audioDeviceId);
+    });
+  }
 }
+

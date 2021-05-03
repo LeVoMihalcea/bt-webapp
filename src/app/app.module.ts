@@ -22,6 +22,8 @@ import {CardModule} from 'primeng/card';
 import { ChatComponent } from './components/core/chat/chat.component';
 import {WebcamModule} from 'ngx-webcam';
 import {NgxMatNativeDateModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
+import { RoomDialogComponent } from './components/core/room-dialog/room-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -42,23 +44,25 @@ const routes: Routes = [
     JoinRoomComponent,
     RoomComponent,
     ChatComponent,
+    RoomDialogComponent,
   ],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    HttpClientModule,
-    RouterModule.forRoot(routes),
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    AngularMaterialModule,
-    FlexLayoutModule,
-    AngularAgoraRtcModule.forRoot({AppID: environment.appId}),
-    CardModule,
-    WebcamModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule
-  ],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        HttpClientModule,
+        RouterModule.forRoot(routes),
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        AngularMaterialModule,
+        FlexLayoutModule,
+        AngularAgoraRtcModule.forRoot({AppID: environment.appId}),
+        CardModule,
+        WebcamModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
+        MatDialogModule
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
   ],

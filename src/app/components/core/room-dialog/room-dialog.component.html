@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Settings</h1>
+<div mat-dialog-content>
+  <p>Camera</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose an option</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let device of this.agoraService.videoDevices" [value]="device"
+                  (onSelectionChange)="this.videoDeviceId = device.deviceId">{{device.label}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p>Microphone</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose an option</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let device of this.agoraService.audioDevices" [value]="device"
+                  (onSelectionChange)="this.audioDeviceId = device.deviceId">{{device.label}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Close</button>
+</div>
