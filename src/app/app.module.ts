@@ -14,16 +14,17 @@ import {AngularMaterialModule} from '@app/components/shared/material/angular-mat
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {CommonModule} from '@angular/common';
 import {CreateRoomComponent} from './components/core/create-room/create-room.component';
-import { JoinRoomComponent } from './components/core/join-room/join-room.component';
-import { RoomComponent } from './components/core/room/room.component';
+import {JoinRoomComponent} from './components/core/join-room/join-room.component';
+import {RoomComponent} from './components/core/room/room.component';
 import {environment} from '@environments/environment';
 import {AngularAgoraRtcModule} from 'angular-agora-rtc';
 import {CardModule} from 'primeng/card';
-import { ChatComponent } from './components/core/chat/chat.component';
+import {ChatComponent} from './components/core/chat/chat.component';
 import {WebcamModule} from 'ngx-webcam';
 import {NgxMatNativeDateModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
-import { RoomDialogComponent } from './components/core/room-dialog/room-dialog.component';
+import {RoomDialogComponent} from './components/core/room-dialog/room-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {ErrorInterceptor} from '@app/components/_helpers/interceptors/error.interceptor';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -46,25 +47,26 @@ const routes: Routes = [
     ChatComponent,
     RoomDialogComponent,
   ],
-    imports: [
-        CommonModule,
-        BrowserModule,
-        HttpClientModule,
-        RouterModule.forRoot(routes),
-        FormsModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        AngularMaterialModule,
-        FlexLayoutModule,
-        AngularAgoraRtcModule.forRoot({AppID: environment.appId}),
-        CardModule,
-        WebcamModule,
-        NgxMatTimepickerModule,
-        NgxMatNativeDateModule,
-        MatDialogModule
-    ],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    HttpClientModule,
+    RouterModule.forRoot(routes),
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    AngularMaterialModule,
+    FlexLayoutModule,
+    AngularAgoraRtcModule.forRoot({AppID: environment.appId}),
+    CardModule,
+    WebcamModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    MatDialogModule
+  ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
