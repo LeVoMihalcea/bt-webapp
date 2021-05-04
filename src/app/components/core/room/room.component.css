@@ -67,3 +67,7 @@ webcam {
 .title-material-icons{
   font-size: 300%;
 }
+
+.room-name{
+  margin: 16px;
+}

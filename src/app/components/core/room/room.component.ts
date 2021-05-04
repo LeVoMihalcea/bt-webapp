@@ -17,6 +17,7 @@ import {UserStream} from '@app/components/domain/UserStream';
 import {MatOptionSelectionChange} from '@angular/material/core';
 import {RoomDialogComponent} from '@app/components/core/room-dialog/room-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {RoomInformationComponent} from '@app/components/core/room-information/room-information.component';
 
 @Component({
   selector: 'app-room',
@@ -294,9 +295,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.imageService.send($event.imageAsDataUrl);
   }
 
-  copyIdToClipboard(id: string): void {
-    this.clipboardService.copy(id);
-  }
+
 
   changeCamera($event: MatOptionSelectionChange): void {
     console.log($event);
@@ -308,9 +307,18 @@ export class RoomComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(RoomDialogComponent, {width: '20%'});
     dialogRef.afterClosed().subscribe((settings) => {
       console.log(settings);
-      if(settings.videoDeviceId !== undefined)
-      this.localStream.switchDevice('video', settings.videoDeviceId);
-      this.localStream.switchDevice('audio', settings.audioDeviceId);
+      if (settings.videoDeviceId !== undefined) {
+        this.localStream.switchDevice('video', settings.videoDeviceId);
+      }
+      if (settings.audioDeviceId !== undefined) {
+        this.localStream.switchDevice('audio', settings.audioDeviceId);
+      }
+    });
+  }
+
+  openInformationDialog(): void {
+    this.dialog.open(RoomInformationComponent, {
+      data: this.room
     });
   }
 }

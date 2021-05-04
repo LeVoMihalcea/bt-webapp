@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Room Information</h1>
+<div mat-dialog-content>
+  <h3>
+    <label>Name:</label> {{data.name}}<br>
+    <label>Type:</label> {{data.type}}<br>
+    <label>Description: </label> {{data.description}}<br>
+    <label>Host: </label> {{data.host.firstName + " " + data.host.lastName}}<br>
+    <label>Join Code:</label> {{data.id}}
+    <mat-icon (click)="copyIdToClipboard(data.id)" matTooltip="Copy Join Code"> content_copy</mat-icon>
+  </h3>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Close</button>
+</div>

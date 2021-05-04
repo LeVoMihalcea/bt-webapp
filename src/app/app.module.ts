@@ -25,6 +25,7 @@ import {NgxMatNativeDateModule, NgxMatTimepickerModule} from '@angular-material-
 import {RoomDialogComponent} from './components/core/room-dialog/room-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {ErrorInterceptor} from '@app/components/_helpers/interceptors/error.interceptor';
+import { RoomInformationComponent } from './components/core/room-information/room-information.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -46,6 +47,7 @@ const routes: Routes = [
     RoomComponent,
     ChatComponent,
     RoomDialogComponent,
+    RoomInformationComponent,
   ],
   imports: [
     CommonModule,
