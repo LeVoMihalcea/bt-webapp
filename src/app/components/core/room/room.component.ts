@@ -202,6 +202,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       this.userService.getUserDetails(evt.stream.getId()).subscribe((user) => {
         if (!this.remoteCalls.includes(`agora_remote${stream.getId()}`)) {
           this.remoteCalls.push(new UserStream(user, `agora_remote${stream.getId()}`));
+          console.log(this.remoteCalls);
         }
       });
 
@@ -223,17 +224,17 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   private setEventListenerForPeerLeave(): void {
-    this.agoraService.client.on(ClientEvent.StreamTypeChanged, (evt) => {
+    this.agoraService.client.on(ClientEvent.PeerLeave, (evt) => {
       console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', evt);
       const stream = evt.stream as Stream;
       console.log('left' + evt);
-      // if (stream) {
-      //   stream.stop();
-      //   this.remoteCalls = this.remoteCalls.filter(
-      //     (call) => call === `#agora_remote${stream.getId()}`
-      //   );
-      //   console.log(`${evt.uid} left from this channel`);
-      // }
+      if (stream) {
+        stream.stop();
+        this.remoteCalls = this.remoteCalls.filter(
+          (call) => call === `#agora_remote${stream.getId()}`
+        );
+        console.log(`${evt.uid} left from this channel`);
+      }
     });
   }
 

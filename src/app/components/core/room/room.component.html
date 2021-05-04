@@ -17,7 +17,7 @@
       </mat-card-header>
       <mat-card-content>
         <div class="videostream-container">
-          <div id="agora_local" class="" [class.host]="isCurrentUserHost()">
+          <div id="agora_local" class="">
           </div>
         </div>
       </mat-card-content>
@@ -34,8 +34,7 @@
         <mat-card-subtitle>{{remoteCall.user?.email}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <div class="remote_calls" [id]="remoteCall.stream"
-             [class.host]="isCurrentUserHost()">
+        <div class="remote_calls" [id]="remoteCall.stream">
         </div>
       </mat-card-content>
     </mat-card>
