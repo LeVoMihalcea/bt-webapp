@@ -82,6 +82,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.localStream.close();
+    this.agoraService.client.leave();
     this.triggerTimerSubscription.unsubscribe();
     this.imageService.disconnect();
   }
@@ -114,6 +115,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       .subscribe(
         data => {
           this.token = data.token;
+          console.log(this.token);
           this.startCall();
         },
         error => {
@@ -225,15 +227,12 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   private setEventListenerForPeerLeave(): void {
     this.agoraService.client.on(ClientEvent.PeerLeave, (evt) => {
-      console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', evt);
       const stream = evt.stream as Stream;
-      console.log('left' + evt);
       if (stream) {
         stream.stop();
         this.remoteCalls = this.remoteCalls.filter(
           (call) => call === `#agora_remote${stream.getId()}`
         );
-        console.log(`${evt.uid} left from this channel`);
       }
     });
   }
