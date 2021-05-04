@@ -263,9 +263,18 @@ export class RoomComponent implements OnInit, OnDestroy {
   toggleSound(): void {
     this.roomState.soundOff = !this.roomState.soundOff;
     if (this.roomState.soundOff) {
-      this.localStream.setAudioVolume(0);
+      this.muteAllRemoteCalls();
+      return;
     }
-    this.localStream.setAudioVolume(100);
+    this.unmuteAllRemoteCalls();
+  }
+
+  private muteAllRemoteCalls(): void {
+    this.remoteCalls.forEach((remoteCall) => remoteCall.stream.setAudioVolume(0));
+  }
+
+  private unmuteAllRemoteCalls(): void {
+    this.remoteCalls.forEach((remoteCall) => remoteCall.stream.setAudioVolume(100));
   }
 
   isCurrentUserHost(): boolean {
