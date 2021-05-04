@@ -2,12 +2,10 @@
   padding: 16px;
   width: 100%;
   margin: 0 auto 0 auto;
-  flex: fit-content;
 }
 
 .card{
-  min-width: 400px;
-  min-height: 400px;
+  margin: 16px;
 }
 
 #agora_local {

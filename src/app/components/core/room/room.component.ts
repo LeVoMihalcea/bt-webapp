@@ -214,9 +214,10 @@ export class RoomComponent implements OnInit, OnDestroy {
       stream.stop();
       console.log(this.remoteCalls);
       this.remoteCalls = this.remoteCalls.filter(
-        (call) => call !== `#agora_remote${stream.getId()}`
+        (call) => {
+          console.log(this.remoteCalls);
+        }
       );
-      console.log(`Remote stream is removed ${stream.getId()}`);
     });
   }
 
