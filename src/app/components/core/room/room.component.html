@@ -3,7 +3,7 @@
 </h2>
 
 <div class="container" fxLayout="row" fxLayoutGap="16px grid">
-  <div fxFlex="33%" fxFlex.gt-lg="20%" fxFlex.lt-lg="50%">
+  <div fxFlex="33%" fxFlex.gt-lg="20%" fxFlex.lt-lg="50%" fxFlex.sm="100%">
     <mat-card class="card">
       <mat-card-header>
         <div mat-card-avatar>
@@ -24,14 +24,12 @@
     </mat-card>
   </div>
 
-  <div class="card-container" fxFlex="33%" fxFlex.gt-lg="20%" fxFlex.lt-lg="50%" *ngFor="let remoteCall of remoteCalls">
+  <div fxFlex="33%" fxFlex.gt-lg="20%" fxFlex.lt-lg="50%" fxFlex.sm="100%" *ngFor="let remoteCall of remoteCalls">
     <mat-card class="card">
       <mat-card-header>
-        <div mat-card-avatar>
-            <span class="title-material-icons material-icons">
-              account_circle
-            </span>
-        </div>
+        <span class="title-material-icons material-icons">
+          account_circle
+        </span>
         <mat-card-title>{{remoteCall.user?.firstName + remoteCall.user?.lastName}}</mat-card-title>
         <mat-card-subtitle>{{remoteCall.user?.email}}</mat-card-subtitle>
       </mat-card-header>
