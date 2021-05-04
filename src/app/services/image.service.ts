@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
 import * as SockJS from 'sockjs-client';
 import {IFrame, Stomp} from '@stomp/stompjs';
+import {Message} from '@app/components/domain/Message';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,12 @@ import {IFrame, Stomp} from '@stomp/stompjs';
 export class ImageService {
   topic = '/topic/AI-responses';
   stompClient: any;
-  public messages = [];
+  public messages: Message[] = [];
 
   constructor() {
   }
 
   connect(): void {
-    console.log('Initialize WebSocket Connection', environment.socketUrl);
     const ws = new SockJS(environment.socketUrl);
     this.stompClient = Stomp.over(ws);
     const thisSnapshot = this;
@@ -30,10 +30,8 @@ export class ImageService {
     if (this.stompClient !== null) {
       this.stompClient.disconnect();
     }
-    console.log('Disconnected');
   }
 
-  // on error, schedule a reconnection attempt
   errorCallBack(error): void {
     console.log('errorCallBack -> ' + error);
     setTimeout(() => {
@@ -42,13 +40,13 @@ export class ImageService {
   }
 
   send(message: string): void {
-    console.log('calling logout api via web socket');
     this.stompClient.send('/app/analyse', {}, JSON.stringify(message));
   }
 
   onMessageReceived(message: IFrame): void {
-    console.log('Message Recieved from Server :: ' + message.body);
-    // const parsedMessage = JSON.parse(message.body);
-    this.messages.push(message.body);
+    const parsedMessage = JSON.parse(message.body);
+    const newMessage = new Message(parsedMessage.body.happiness, parsedMessage.body.sadness,
+      parsedMessage.body.confusion, parsedMessage.body.maxValue, parsedMessage.body.message);
+    this.messages.push(newMessage);
   }
 }

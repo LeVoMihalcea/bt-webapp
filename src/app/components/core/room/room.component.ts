@@ -4,7 +4,7 @@ import {TokenService} from '@app/services/token.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RoomState} from '@app/components/domain/RoomState';
 import {ClientConfig, ClientEvent, NgxAgoraService, Stream, StreamEvent, StreamSpec} from 'ngx-agora';
-import {ErrorService} from '@app/services/error.service';
+import {ToastService} from '@app/services/toast.service';
 import {RoomService} from '@app/services/room.service';
 import {Room} from '@app/components/domain/Room';
 import {SharedService} from '@app/services/shared.service';
@@ -18,6 +18,7 @@ import {MatOptionSelectionChange} from '@angular/material/core';
 import {RoomDialogComponent} from '@app/components/core/room-dialog/room-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {RoomInformationComponent} from '@app/components/core/room-information/room-information.component';
+import {Message} from '@app/components/domain/Message';
 
 @Component({
   selector: 'app-room',
@@ -32,7 +33,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     public tokenService: TokenService,
     private route: ActivatedRoute,
     private router: Router,
-    private errorService: ErrorService,
+    private toastService: ToastService,
     private roomService: RoomService,
     private sharedService: SharedService,
     public imageService: ImageService,
@@ -46,19 +47,17 @@ export class RoomComponent implements OnInit, OnDestroy {
       () => {
       },
       () => {
-        this.errorService.showError('Something went wrong connecting to Agora');
+        this.toastService.showError('Something went wrong connecting to Agora');
       }
     );
     this.roomState = new RoomState();
   }
-
-  private error = '';
   private token = '';
   private channelKey = '';
   private localStream: Stream;
   public roomState: RoomState;
   public room: Room;
-  public messages: string[];
+  public messages: Message[] = [];
   private trigger: Subject<void> = new Subject<void>();
   private triggerTimerSubscription: Subscription;
   remoteCalls: any = [];
@@ -90,12 +89,8 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.messages = [];
-    console.log('pre-connect');
     this.imageService.connect();
-    console.log('post-connect');
-    console.log('triggered');
     this.triggerTimerSubscription = interval(10000).subscribe(x => {
-      console.log('triggered');
       this.trigger.next();
     });
     this.route.params.subscribe(params => {
@@ -108,19 +103,17 @@ export class RoomComponent implements OnInit, OnDestroy {
           this.room = data;
         },
         error => {
-          this.errorService.showError(error.message);
+          this.toastService.showError(error.message);
         }
       );
     this.tokenService.askForToken(this.channelKey)
       .subscribe(
         data => {
           this.token = data.token;
-          console.log(this.token);
           this.startCall();
         },
         error => {
-          console.log('something went wrong', error);
-          this.error = error;
+          this.toastService.showError(error.message);
         });
   }
 
@@ -142,46 +135,42 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.setEventListenerForRemoteStreamRemoved();
     this.setEventListenerForPeerLeave();
     // this.setEventListenerForRemoteVideoMuted();
+    // this.setEventListenerForRemoteVideoUnmuted();
   }
 
   private setEventListenerForCameraAndMicrophoneAccess(): void {
-    // The user has granted access to the camera and mic.
     this.localStream.on(StreamEvent.MediaAccessAllowed, () => {
-      console.log('accessAllowed');
+
     });
-    // The user has denied access to the camera and mic.
     this.localStream.on(StreamEvent.MediaAccessDenied, () => {
-      this.errorService.showError('You must provide access to your Microphone and Camera');
+      this.toastService.showError('You must provide access to your Microphone and Camera');
     });
   }
 
   private initializeTheLocalStream(): void {
     this.localStream.init(
       () => {
-        console.log('getUserMedia successfully');
         this.localStream.play('agora_local');
         this.agoraService.client.publish(this.localStream, (err) =>
-          this.errorService.showError('Publish local stream error: ' + err)
+          this.toastService.showError('Publish local stream error: ' + err)
         );
         this.agoraService.client.on(ClientEvent.LocalStreamPublished, (evt) =>
           console.log('Publish local stream successfully')
         );
       },
-      (err) => this.errorService.showError('getUserMedia failed' + err)
+      (err) => this.toastService.showError('getUserMedia failed' + err)
     );
   }
 
   private setEventListenerForErrors(): void {
     this.agoraService.client.on(ClientEvent.Error, (err) => {
-      console.log('Got error msg:', err.reason);
+      this.toastService.showError(err.reason);
       if (err.reason === 'DYNAMIC_KEY_TIMEOUT') {
         this.agoraService.client.renewChannelKey(
           '',
-          () => {
-            console.log('Renew channel key successfully');
-          },
+          () => {},
           (error) => {
-            this.errorService.showError('Renew channel key failed: ' + error);
+            this.toastService.showError('Renew channel key failed: ' + error);
           }
         );
       }
@@ -192,7 +181,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.agoraService.client.on(ClientEvent.RemoteStreamAdded, (evt) => {
       const stream = evt.stream as Stream;
       this.agoraService.client.subscribe(stream, null, (err) => {
-        this.errorService.showError('Subscribe stream failed' + err);
+        this.toastService.showError('Subscribe stream failed' + err);
       });
     });
   }
@@ -203,8 +192,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
       this.userService.getUserDetails(evt.stream.getId()).subscribe((user) => {
         if (!this.remoteCalls.includes(`agora_remote${stream.getId()}`)) {
-          this.remoteCalls.push(new UserStream(user, `agora_remote${stream.getId()}`));
-          console.log(this.remoteCalls);
+          this.remoteCalls.push(new UserStream(user, `agora_remote${stream.getId()}`, stream));
         }
       });
 
@@ -218,9 +206,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       stream.stop();
       console.log(this.remoteCalls);
       this.remoteCalls = this.remoteCalls.filter(
-        (call) => {
-          console.log(this.remoteCalls);
-        }
+        (call) => call !== `agora_remote${stream.getId()}`
       );
     });
   }
@@ -231,7 +217,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       if (stream) {
         stream.stop();
         this.remoteCalls = this.remoteCalls.filter(
-          (call) => call === `#agora_remote${stream.getId()}`
+          (call) => call.streamId !== `agora_remote${stream.getId()}`
         );
       }
     });
@@ -262,6 +248,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   toggleSound(): void {
     this.roomState.soundOff = !this.roomState.soundOff;
+    console.log(this.remoteCalls);
     if (this.roomState.soundOff) {
       this.muteAllRemoteCalls();
       return;
@@ -270,11 +257,11 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   private muteAllRemoteCalls(): void {
-    this.remoteCalls.forEach((remoteCall) => remoteCall.stream.setAudioVolume(0));
+    this.remoteCalls.forEach((remoteCall) => remoteCall.stream.disableAudio());
   }
 
   private unmuteAllRemoteCalls(): void {
-    this.remoteCalls.forEach((remoteCall) => remoteCall.stream.setAudioVolume(100));
+    this.remoteCalls.forEach((remoteCall) => remoteCall.stream.enableAudio());
   }
 
   isCurrentUserHost(): boolean {
@@ -287,7 +274,17 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   private setEventListenerForRemoteVideoMuted(): void {
     this.agoraService.client.on(ClientEvent.RemoveVideoMuted, (evt) => {
-      console.log((document.getElementById('video' + evt.uid) as HTMLInputElement).replaceWith('<p> Test</p>'));
+      const stream = evt.stream as Stream;
+      this.remoteCalls.filter((userStream) => userStream.user.id !== stream.getId());
+      this.remoteCalls.stream.disableVideo();
+    });
+  }
+
+  private setEventListenerForRemoteVideoUnmuted(): void {
+    this.agoraService.client.on(ClientEvent.RemoveVideoMuted, (evt) => {
+      const stream = evt.stream as Stream;
+      this.remoteCalls.filter((userStream) => userStream.user.id !== stream.getId());
+      this.remoteCalls.stream.enableVideo();
     });
   }
 
@@ -300,14 +297,10 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   handleImage($event: WebcamImage): void {
-    console.log('!!!', $event);
     this.imageService.send($event.imageAsDataUrl);
   }
 
-
-
   changeCamera($event: MatOptionSelectionChange): void {
-    console.log($event);
     this.localStream.switchDevice('video', $event.source.value.deviceId,
       () => console.log('SUCCESS'), () => console.log('FAILURE'));
   }

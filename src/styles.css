@@ -10,3 +10,18 @@ body {
 h1 {
   text-align: center;
 }
+
+.success-toast{
+  background-color: #4BB543;
+  color: white;
+}
+
+.info-toast{
+  background-color: #607d8b;
+  color: white;
+}
+
+.error-toast{
+  background-color: #f44336;
+  color: white;
+}

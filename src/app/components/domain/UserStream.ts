@@ -1,11 +1,14 @@
 import {User} from './User';
+import {Stream} from 'ngx-agora';
 
 export class UserStream {
   user: User;
-  stream: any;
+  streamId: string;
+  stream: Stream;
 
-  constructor(user: User, stream: any) {
+  constructor(user: User, streamId: any, stream: Stream) {
     this.user = user;
+    this.streamId = streamId;
     this.stream = stream;
   }
 }

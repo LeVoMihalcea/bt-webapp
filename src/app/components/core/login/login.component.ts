@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import {AuthenticationService} from '@app/services/authentication.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ErrorService} from '@app/services/error.service';
+import {ToastService} from '@app/services/toast.service';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private errorService: ErrorService
+    private toastService: ToastService
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.errorService.showError(error.message);
+          this.toastService.showError(error.message);
           console.log('something went wrong', error);
           this.error = error;
         });

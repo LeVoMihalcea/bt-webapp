@@ -4,14 +4,14 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {AuthenticationService} from '@app/services/authentication.service';
 import {Router} from '@angular/router';
-import {ErrorService} from '@app/services/error.service';
+import {ToastService} from '@app/services/toast.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
-    private errorService: ErrorService
+    private toastService: ToastService
   ) {}
 
 
@@ -27,7 +27,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.authenticationService.logout();
       }
       else if (err.status === 500){
-        this.errorService.showError(err.error.message);
+        this.toastService.showError(err.error.message);
       }
 
       const error = err.error.message || err.statusText;

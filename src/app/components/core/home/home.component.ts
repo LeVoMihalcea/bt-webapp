@@ -5,7 +5,7 @@ import {Room} from '@app/components/domain/Room';
 import {RoomService} from '@app/services/room.service';
 import {Router} from '@angular/router';
 import {ClipboardService} from 'ngx-clipboard';
-import {ErrorService} from '@app/services/error.service';
+import {ToastService} from '@app/services/toast.service';
 import {AppComponent} from '@app/app.component';
 
 @Component({
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     private roomService: RoomService,
     private router: Router,
     private clipboardService: ClipboardService,
-    private errorService: ErrorService,
+    private toastService: ToastService,
     private appComponent: AppComponent
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
           this.getRooms();
         },
         error => {
-          this.errorService.showError(error.message);
+          this.toastService.showError(error.message);
         });
   }
 
@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
           this.getRooms();
         },
         error => {
-          this.errorService.showError(error.message);
+          this.toastService.showError(error.message);
         });
   }
 }
