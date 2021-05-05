@@ -4,6 +4,10 @@
   margin: 0 auto 0 auto;
 }
 
+.card-container{
+  margin-bottom: 16px;
+}
+
 .title-material-icons{
   font-size: 300%;
 }
