@@ -11,21 +11,21 @@ export class ToastService {
   ) { }
 
   showError(message: string): void{
-    this.snackBarModule.open(message, 'x', {
+    this.snackBarModule.open(message, 'X', {
       duration: 5000,
       panelClass: 'error-toast'
     });
   }
 
   showInfo(message: string): void{
-    this.snackBarModule.open(message, 'x', {
+    this.snackBarModule.open(message, 'X', {
       duration: 5000,
       panelClass: 'info-toast'
     });
   }
 
   showOkay(message: string): void{
-    this.snackBarModule.open(message, 'x', {
+    this.snackBarModule.open(message, 'X', {
       duration: 5000,
       panelClass: 'success-toast'
     });
