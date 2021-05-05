@@ -10,7 +10,7 @@ import {Message} from '@app/components/domain/Message';
 export class ImageService {
   topic = '/topic/AI-responses';
   stompClient: any;
-  public messages: Message[] = [];
+  public messages: string[] = [];
 
   constructor() {
   }
@@ -44,9 +44,8 @@ export class ImageService {
   }
 
   onMessageReceived(message: IFrame): void {
-    const parsedMessage = JSON.parse(message.body);
-    const newMessage = new Message(parsedMessage.body.happiness, parsedMessage.body.sadness,
-      parsedMessage.body.confusion, parsedMessage.body.maxValue, parsedMessage.body.message);
-    this.messages.push(newMessage);
+    console.log('Message Recieved from Server :: ' + message.body);
+    // const parsedMessage = JSON.parse(message.body);
+    this.messages.push(message.body);
   }
 }
