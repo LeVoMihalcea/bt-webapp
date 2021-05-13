@@ -10,6 +10,9 @@
     </div>
     <div class="username">
       {{authenticationService.currentUserValue.firstName + " " + authenticationService.currentUserValue.lastName}}
+      <span class="material-icons yellow" *ngIf="this.isCurrentUserHost()">
+        star
+      </span>
     </div>
   </div>
 
@@ -20,6 +23,9 @@
     </div>
     <div class="username">
       {{remoteCall.user?.firstName + " " + remoteCall.user?.lastName}}
+      <span class="material-icons yellow" *ngIf="remoteCall.user?.email === this.room.host.email">
+        star
+      </span>
     </div>
   </div>
 </div>
@@ -27,16 +33,16 @@
 <div class="controls">
   <div class="inner-controls">
     <button mat-icon-button (click)="exitCall()">
-      <span class="material-icons red-button">
+      <span class="material-icons red">
         close
       </span>
     </button>
-    <button mat-icon-button (click)="toggleMute()" [class.red-button]="roomState.micOff">
+    <button mat-icon-button (click)="toggleMute()" [class.red]="roomState.micOff">
       <span class="material-icons">
         {{roomState.micOff ? 'mic_off' : 'mic'}}
       </span>
     </button>
-    <button mat-icon-button (click)="toggleVideo()" [class.red-button]="roomState.cameraOff">
+    <button mat-icon-button (click)="toggleVideo()" [class.red]="roomState.cameraOff">
       <span class="material-icons">
        {{roomState.cameraOff ? 'videocam_off' : 'videocam'}}
       </span>

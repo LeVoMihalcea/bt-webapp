@@ -48,4 +48,12 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this.mobileQueryListener);
   }
+
+  isUserInARoom(): boolean{
+    return this.router.url.startsWith('/room');
+  }
+
+  shouldHideNavbar(): boolean{
+    return !this.mobileQuery.matches && this.authenticationService.currentUserValue != null && !this.isUserInARoom();
+  }
 }

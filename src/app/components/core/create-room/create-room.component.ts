@@ -4,6 +4,7 @@ import {RoomService} from '@app/services/room.service';
 import {Room} from '@app/components/domain/Room';
 import {Router} from '@angular/router';
 import {RoomCalendarEntry} from '@app/components/domain/RoomCalendarEntry';
+import {DomainValues} from '@app/components/shared/DomainValues';
 
 @Component({
   selector: 'app-create-room',
@@ -17,24 +18,28 @@ export class CreateRoomComponent implements OnInit {
   date: any;
   recurrentMeeting: boolean;
   loading: boolean;
+  roomTypes: string[];
 
   constructor(
     private formBuilder: FormBuilder,
     private roomService: RoomService,
     private router: Router
   ) {
+    this.roomTypes = DomainValues.roomTypes;
   }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
-      type: ['', [Validators.required]],
+      predefinedType: ['', [Validators.required]],
+      type: ['', []],
       description: ['', [Validators.required]],
       firstDateTime: ['', []],
       hours: ['', []],
       repeatEvery: ['', []],
       timeUnit: ['', []]
     });
+    console.log(this.form);
   }
 
   onSubmit(): void {
@@ -51,9 +56,11 @@ export class CreateRoomComponent implements OnInit {
       this.form.controls.timeUnit.value ? this.form.controls.timeUnit.value : 'WEEKLY',
     );
 
+    console.log(this.form.controls.predefinedType.value);
+
     const room = new Room(
       this.form.controls.name.value,
-      this.form.controls.type.value,
+      this.form.controls.predefinedType.value === 'Other' ? this.form.controls.type.value : 'Other',
       this.form.controls.description.value,
       roomCalendarEntry
     );

@@ -10,22 +10,29 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="full-width-input">
-          <input matInput placeholder="Room type" formControlName="type" required>
+        <mat-form-field appearance="outline">
+          <mat-label>Room Type</mat-label>
+          <mat-select formControlName="predefinedType" #roomTypeSelect>
+            <mat-option value="{{roomType}}" *ngFor="let roomType of this.roomTypes">{{roomType}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input" *ngIf="roomTypeSelect.value === 'Other'">
+          <input matInput placeholder="Custom Room type" formControlName="type" required>
           <mat-error>
             Please provide a valid room type
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width-input">
-          <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="3"
+          <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2"
                     cdkAutosizeMaxRows="10" placeholder="Description" formControlName="description" required></textarea>
           <mat-error>
             Please provide a valid room description
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
           <mat-label>Meeting Length</mat-label>
           <mat-select formControlName="hours">
             <mat-option value="1">1 Hour</mat-option>
@@ -54,7 +61,7 @@
           <br>
 
           <div *ngIf="recurrentMeeting">
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
               <mat-label>Recurrence</mat-label>
               <mat-select formControlName="timeUnit">
                 <mat-option value="DAILY">Daily</mat-option>
@@ -63,7 +70,7 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
               <mat-label>Number</mat-label>
               <mat-select formControlName="repeatEvery">
                 <mat-option value="1">1</mat-option>

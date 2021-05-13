@@ -20,7 +20,7 @@
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #sidenav [opened]="!mobileQuery.matches && this.authenticationService.currentUserValue != null"
+    <mat-sidenav #sidenav [opened]="shouldHideNavbar()"
                  [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
         <a mat-list-item [routerLink]="''">

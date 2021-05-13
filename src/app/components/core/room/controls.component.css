@@ -17,8 +17,12 @@ button {
   height: 50px;
 }
 
-.red-button {
+.red {
   color: red;
+}
+
+.yellow{
+  color: #ffdd00;
 }
 
 a {

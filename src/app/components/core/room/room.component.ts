@@ -19,6 +19,8 @@ import {RoomDialogComponent} from '@app/components/core/room-dialog/room-dialog.
 import {MatDialog} from '@angular/material/dialog';
 import {RoomInformationComponent} from '@app/components/core/room-information/room-information.component';
 import {Message} from '@app/components/domain/Message';
+import {User} from '@app/components/domain/User';
+import {MatSnackBarHorizontalPosition} from "@angular/material/snack-bar/snack-bar-config";
 
 @Component({
   selector: 'app-room',
@@ -144,6 +146,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     });
     this.localStream.on(StreamEvent.MediaAccessDenied, () => {
       this.toastService.showError('You must provide access to your Microphone and Camera');
+      this.router.navigate(['']);
     });
   }
 
@@ -190,9 +193,10 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.agoraService.client.on(ClientEvent.RemoteStreamSubscribed, (evt) => {
       const stream = evt.stream as Stream;
 
-      this.userService.getUserDetails(evt.stream.getId()).subscribe((user) => {
+      this.userService.getUserDetails(evt.stream.getId()).subscribe((user: User) => {
         if (!this.remoteCalls.includes(`agora_remote${stream.getId()}`)) {
           this.remoteCalls.push(new UserStream(user, `agora_remote${stream.getId()}`, stream));
+          this.toastService.showOkay(user.firstName + ' ' + user.lastName + ' joined the room.');
         }
       });
 
