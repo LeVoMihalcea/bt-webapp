@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from '@app/services/authentication.service';
 import {TokenService} from '@app/services/token.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -23,7 +23,7 @@ import {Message} from '@app/components/domain/Message';
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
-  styleUrls: ['./room.component.css']
+  styleUrls: ['./room.component.css', './controls.component.css', './videostreams.component.css']
 })
 export class RoomComponent implements OnInit, OnDestroy {
 
@@ -322,6 +322,28 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.dialog.open(RoomInformationComponent, {
       data: this.room
     });
+  }
+
+  getWidth(): string{
+    switch (this.remoteCalls.length){
+      case 0: return '100%';
+      case 1:
+      case 2:
+      case 3: return '48%';
+      default: return '33%';
+    }
+  }
+
+  getHeight(): string{
+    switch (this.remoteCalls.length){
+      case 0:
+      case 1: return '90%';
+      case 2:
+      case 3:
+      case 4:
+      case 5: return '40%';
+      default: return '28%';
+    }
   }
 }
 

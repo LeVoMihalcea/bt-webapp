@@ -1,0 +1,27 @@
+.controls {
+  position: absolute !important;
+  left: 50%;
+  bottom: 100px;
+}
+
+.inner-controls {
+  background-color: black;
+  border-radius: 25px;
+  position: relative;
+  left: -50%;
+}
+
+button {
+  margin: 0 auto 0 auto;
+  width: 50px;
+  height: 50px;
+}
+
+.red-button {
+  color: red;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}

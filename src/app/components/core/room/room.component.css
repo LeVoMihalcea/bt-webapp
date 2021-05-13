@@ -1,55 +1,8 @@
 .container {
-  padding: 16px;
   width: 100%;
-  margin: 0 auto 0 auto;
-}
-
-.card{
-  margin: 16px;
-}
-
-#agora_local {
-  height: 300px;
-}
-
-.remote_calls {
-  height: 300px;
-}
-
-.videostream {
-  margin: 50px;
-  height: 250px;
-  border: 1px solid darkgray;
-  border-radius: 10px;
-  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
-}
-
-.controls {
-  position: absolute !important;
-  left: 50%;
-  bottom: 100px;
-}
-
-.inner-controls {
-  background-color: black;
-  border-radius: 25px;
-  position: relative;
-  left: -50%;
-}
-
-button {
-  margin: 0 auto 0 auto;
-  width: 50px;
-  height: 50px;
-}
-
-.red-button {
-  color: red;
-}
-
-a {
-  text-decoration: none;
-  color: white;
+  height: 100vh;
+  z-index: 5;
+  overflow-y: hidden;
 }
 
 .chat {
@@ -69,5 +22,8 @@ webcam {
 }
 
 .room-name{
-  margin: 16px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
 }

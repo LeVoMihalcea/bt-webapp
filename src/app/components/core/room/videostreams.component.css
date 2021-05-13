@@ -1,0 +1,22 @@
+.card-container{
+  float: left;
+}
+
+.videostream-container{
+  height: 100%;
+  background-color: green;
+}
+
+#agora_local{
+  height: 100%;
+}
+
+.remote_calls{
+  height: 100%;
+}
+
+.username{
+  position: relative;
+  bottom: 30px;
+  left: 20px;
+}

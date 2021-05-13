@@ -1,46 +1,29 @@
 <h2 class="room-name">{{room.name}}
   <mat-icon (click)="openInformationDialog()">info</mat-icon>
+
+  Width: {{this.getWidth()}}
+  Height: {{this.getHeight()}}
 </h2>
 
-<div class="container" fxLayout="row" fxLayoutGap="16px grid">
-  <div fxFlex="33%" fxFlex.lt-sm="100%" fxFlex.sm="100%" fxFlex.md = "50%" fxFlex.lg="33" fxFlex.gt-lg="20%">
-    <mat-card class="card">
-      <mat-card-header>
-        <div mat-card-avatar>
-          <span class="title-material-icons material-icons">
-            account_circle
-          </span>
-        </div>
-        <mat-card-title>{{authenticationService.currentUserValue.firstName + " "
-        + authenticationService.currentUserValue.lastName}}</mat-card-title>
-        <mat-card-subtitle>{{authenticationService.currentUserValue.email}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="videostream-container">
-          <div id="agora_local" class="">
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
+
+<div class="container">
+  <div [style.width]="this.getWidth()" [style.height]="this.getHeight()" class="card-container">
+    <div class="videostream-container">
+      <div id="agora_local"></div>
+    </div>
+    <div class="username">
+      {{authenticationService.currentUserValue.firstName + " " + authenticationService.currentUserValue.lastName}}
+    </div>
   </div>
 
-  <div fxFlex="33%" fxFlex.lt-sm="100%" fxFlex.sm="100%" fxFlex.md = "50%" fxFlex.lg="33" fxFlex.gt-lg="20%"
-       *ngFor="let remoteCall of remoteCalls">
-    <mat-card class="card">
-      <mat-card-header>
-        <div mat-card-avatar>
-          <span class="title-material-icons material-icons">
-            account_circle
-          </span>
-        </div>
-        <mat-card-title>{{remoteCall.user?.firstName + " " + remoteCall.user?.lastName}}</mat-card-title>
-        <mat-card-subtitle>{{remoteCall.user?.email}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="remote_calls" [id]="remoteCall.streamId">
-        </div>
-      </mat-card-content>
-    </mat-card>
+  <div *ngFor="let remoteCall of remoteCalls" [style.width]="this.getWidth()" [style.height]="this.getHeight()"
+       class="card-container">
+    <div class="videostream-container">
+      <div class="remote_calls" [id]="remoteCall.streamId"></div>
+    </div>
+    <div class="username">
+      {{remoteCall.user?.firstName + " " + remoteCall.user?.lastName}}
+    </div>
   </div>
 </div>
 
