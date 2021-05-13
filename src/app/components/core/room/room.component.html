@@ -1,8 +1,5 @@
 <h2 class="room-name">{{room.name}}
   <mat-icon (click)="openInformationDialog()">info</mat-icon>
-
-  Width: {{this.getWidth()}}
-  Height: {{this.getHeight()}}
 </h2>
 
 
@@ -42,11 +39,6 @@
     <button mat-icon-button (click)="toggleVideo()" [class.red-button]="roomState.cameraOff">
       <span class="material-icons">
        {{roomState.cameraOff ? 'videocam_off' : 'videocam'}}
-      </span>
-    </button>
-    <button mat-icon-button (click)="toggleSound()" [class.red-button]="roomState.soundOff">
-      <span class="material-icons">
-        {{roomState.soundOff ? 'headset_off' : 'headset'}}
       </span>
     </button>
     <button mat-icon-button (click)="toggleChat()">

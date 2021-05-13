@@ -1,10 +1,11 @@
 .card-container{
   float: left;
+  margin: 0 auto 0 auto;
+  border: 1px solid white;
 }
 
 .videostream-container{
   height: 100%;
-  background-color: green;
 }
 
 #agora_local{
@@ -19,4 +20,5 @@
   position: relative;
   bottom: 30px;
   left: 20px;
+  font-size: 150%;
 }

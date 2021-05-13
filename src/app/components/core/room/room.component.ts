@@ -329,7 +329,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       case 0: return '100%';
       case 1:
       case 2:
-      case 3: return '48%';
+      case 3: return '50%';
       default: return '33%';
     }
   }
@@ -337,12 +337,12 @@ export class RoomComponent implements OnInit, OnDestroy {
   getHeight(): string{
     switch (this.remoteCalls.length){
       case 0:
-      case 1: return '90%';
+      case 1: return '100%';
       case 2:
       case 3:
       case 4:
-      case 5: return '40%';
-      default: return '28%';
+      case 5: return '50%';
+      default: return '33%';
     }
   }
 }
