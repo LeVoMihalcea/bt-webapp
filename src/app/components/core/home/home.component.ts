@@ -56,6 +56,7 @@ export class HomeComponent implements OnInit {
   }
 
   copyIdToClipboard(id: string): void {
+    this.toastService.showInfo('Join Code copied to clipboard');
     this.clipboardService.copy(id);
   }
 
