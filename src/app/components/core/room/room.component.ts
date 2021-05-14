@@ -20,7 +20,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {RoomInformationComponent} from '@app/components/core/room-information/room-information.component';
 import {Message} from '@app/components/domain/Message';
 import {User} from '@app/components/domain/User';
-import {MatSnackBarHorizontalPosition} from "@angular/material/snack-bar/snack-bar-config";
+import {ImageRestService} from '@app/services/image.rest.service';
 
 @Component({
   selector: 'app-room',
@@ -39,6 +39,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     private roomService: RoomService,
     private sharedService: SharedService,
     public imageService: ImageService,
+    public imageRestService: ImageRestService,
     public clipboardService: ClipboardService,
     public userService: UserService,
     public dialog: MatDialog
@@ -301,7 +302,13 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   handleImage($event: WebcamImage): void {
-    this.imageService.send($event.imageAsDataUrl);
+    console.log('image sent');
+    this.imageRestService.sendImage($event.imageAsDataUrl).subscribe(
+      (response) => {},
+      error => {
+        this.toastService.showError('Something went wrong sending the image!');
+      }
+    );
   }
 
   changeCamera($event: MatOptionSelectionChange): void {

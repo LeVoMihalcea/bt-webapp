@@ -19,8 +19,11 @@ export class ImageService {
     const ws = new SockJS(environment.socketUrl);
     this.stompClient = Stomp.over(ws);
     const thisSnapshot = this;
+    console.log('pre-connect');
     thisSnapshot.stompClient.connect({}, (frame) => {
+      console.log('in-connect');
       thisSnapshot.stompClient.subscribe(thisSnapshot.topic, (sdkEvent) => {
+        console.log('on-message-received');
         thisSnapshot.onMessageReceived(sdkEvent);
       });
     }, this.errorCallBack);
@@ -45,6 +48,7 @@ export class ImageService {
 
   onMessageReceived(message: IFrame): void {
     console.log('Message Recieved from Server :: ' + message.body);
+    console.log(this.messages);
     // const parsedMessage = JSON.parse(message.body);
     this.messages.push(message.body);
   }
