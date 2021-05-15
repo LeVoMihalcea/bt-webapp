@@ -18,7 +18,7 @@ import {MatOptionSelectionChange} from '@angular/material/core';
 import {RoomDialogComponent} from '@app/components/core/room-dialog/room-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {RoomInformationComponent} from '@app/components/core/room-information/room-information.component';
-import {Message} from '@app/components/domain/Message';
+import {Reply} from '@app/components/domain/Reply';
 import {User} from '@app/components/domain/User';
 import {ImageRestService} from '@app/services/image.rest.service';
 
@@ -28,6 +28,8 @@ import {ImageRestService} from '@app/services/image.rest.service';
   styleUrls: ['./room.component.css', './controls.component.css', './videostreams.component.css']
 })
 export class RoomComponent implements OnInit, OnDestroy {
+
+  private readonly pictureTimer = 10000;
 
   constructor(
     public agoraService: NgxAgoraService,
@@ -55,12 +57,13 @@ export class RoomComponent implements OnInit, OnDestroy {
     );
     this.roomState = new RoomState();
   }
+
   private token = '';
   private channelKey = '';
   private localStream: Stream;
   public roomState: RoomState;
   public room: Room;
-  public messages: Message[] = [];
+  public reply: Reply[] = [];
   private trigger: Subject<void> = new Subject<void>();
   private triggerTimerSubscription: Subscription;
   remoteCalls: any = [];
@@ -89,11 +92,10 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.imageService.disconnect();
   }
 
-
   ngOnInit(): void {
-    this.messages = [];
+    this.reply = [];
     this.imageService.connect();
-    this.triggerTimerSubscription = interval(10000).subscribe(x => {
+    this.triggerTimerSubscription = interval(this.pictureTimer).subscribe(x => {
       this.trigger.next();
     });
     this.route.params.subscribe(params => {
@@ -172,7 +174,8 @@ export class RoomComponent implements OnInit, OnDestroy {
       if (err.reason === 'DYNAMIC_KEY_TIMEOUT') {
         this.agoraService.client.renewChannelKey(
           '',
-          () => {},
+          () => {
+          },
           (error) => {
             this.toastService.showError('Renew channel key failed: ' + error);
           }
@@ -304,7 +307,8 @@ export class RoomComponent implements OnInit, OnDestroy {
   handleImage($event: WebcamImage): void {
     console.log('image sent');
     this.imageRestService.sendImage($event.imageAsDataUrl).subscribe(
-      (response) => {},
+      (response) => {
+      },
       error => {
         this.toastService.showError('Something went wrong sending the image!');
       }
@@ -335,25 +339,31 @@ export class RoomComponent implements OnInit, OnDestroy {
     });
   }
 
-  getWidth(): string{
-    switch (this.remoteCalls.length){
-      case 0: return '100%';
+  getWidth(): string {
+    switch (this.remoteCalls.length) {
+      case 0:
+        return '100%';
       case 1:
       case 2:
-      case 3: return '50%';
-      default: return '33%';
+      case 3:
+        return '50%';
+      default:
+        return '33%';
     }
   }
 
-  getHeight(): string{
-    switch (this.remoteCalls.length){
+  getHeight(): string {
+    switch (this.remoteCalls.length) {
       case 0:
-      case 1: return '100%';
+      case 1:
+        return '100%';
       case 2:
       case 3:
       case 4:
-      case 5: return '50%';
-      default: return '33%';
+      case 5:
+        return '50%';
+      default:
+        return '33%';
     }
   }
 }

@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Reply} from '@app/components/domain/Reply';
 
 @Component({
   selector: 'app-chat',
@@ -8,16 +9,10 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ChatComponent implements OnInit {
 
   @Input()
-  public messages: any[];
+  public replies: Reply[] = [];
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.messages.push('Lorem Ipsum');
-    this.messages.push('Lorem Ipsum');
-    this.messages.push('Lorem Ipsum');
-    this.messages.push('Lorem Ipsum');
-    this.messages.push('Lorem Ipsum');
-  }
+  ngOnInit(): void {}
 
 }
