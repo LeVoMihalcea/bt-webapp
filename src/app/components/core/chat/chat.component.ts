@@ -13,7 +13,11 @@ export class ChatComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
+    this.messages.push('Lorem Ipsum');
+    this.messages.push('Lorem Ipsum');
+    this.messages.push('Lorem Ipsum');
+    this.messages.push('Lorem Ipsum');
+    this.messages.push('Lorem Ipsum');
   }
 
 }
