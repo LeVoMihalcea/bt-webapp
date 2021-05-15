@@ -29,7 +29,7 @@ import {ImageRestService} from '@app/services/image.rest.service';
 })
 export class RoomComponent implements OnInit, OnDestroy {
 
-  private readonly pictureTimer = 1000;
+  private readonly pictureTimer = 10000;
 
   constructor(
     public agoraService: NgxAgoraService,
