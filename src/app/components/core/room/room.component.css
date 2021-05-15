@@ -8,9 +8,9 @@
 .chat {
   position: absolute;
   right: 0;
-  top: 200px;
+  top: 0;
+  height: 500px;
   width: 300px;
-  height: auto;
 }
 
 webcam {

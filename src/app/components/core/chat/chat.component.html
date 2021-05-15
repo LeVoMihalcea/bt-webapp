@@ -1,4 +1,8 @@
-<div class="container" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-  <div *ngFor="let reply of replies">{{reply.message}}</div>
+<div class="container" #scrollable [scrollTop]="scrollable.scrollHeight">
+  <mat-selection-list role="list" [multiple]="false">
+    <mat-list-option *ngFor="let reply of replies" [value]="reply">
+<!--                     class="{{reply.dominantEmotion}}"-->
+      {{reply.message}}
+    </mat-list-option>
+  </mat-selection-list>
 </div>
-

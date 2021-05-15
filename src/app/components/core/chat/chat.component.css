@@ -1,10 +1,41 @@
-.container{
-  height: 500px;
-  opacity: 0.8;
-  overflow: hidden;
+.container {
+  height: 100%;
+  background-color: rgba(66, 66, 66, 0.4);
+  scroll-behavior: smooth;
+  overflow: scroll;
+  margin: 0;
+  padding: 0;
 }
 
-.container:hover{
-  opacity: 1.0;
-  background-color: rgba(0, 0, 0, 0.6);
+.container:hover {
+  background-color: rgba(66, 66, 66, 0.8);
+}
+
+mat-list-option{
+  height: 1%;
+}
+
+.sadness{
+  background-color: blue;
+}
+
+.happiness{
+  background-color: green;
+}
+
+.anger{
+  background-color: red;
+}
+
+.fear{
+  background-color: black;
+}
+
+.surprise{
+  background-color: yellow;
+  color: black;
+}
+
+.disgust{
+  background-color: purple;
 }

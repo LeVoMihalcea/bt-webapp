@@ -29,7 +29,7 @@ import {ImageRestService} from '@app/services/image.rest.service';
 })
 export class RoomComponent implements OnInit, OnDestroy {
 
-  private readonly pictureTimer = 10000;
+  private readonly pictureTimer = 1000;
 
   constructor(
     public agoraService: NgxAgoraService,
@@ -63,7 +63,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   private localStream: Stream;
   public roomState: RoomState;
   public room: Room;
-  public reply: Reply[] = [];
+  public replies: Reply[] = [];
   private trigger: Subject<void> = new Subject<void>();
   private triggerTimerSubscription: Subscription;
   remoteCalls: any = [];
@@ -89,11 +89,12 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.localStream.close();
     this.agoraService.client.leave();
     this.triggerTimerSubscription.unsubscribe();
+    this.replies = [];
     this.imageService.disconnect();
   }
 
   ngOnInit(): void {
-    this.reply = [];
+    this.replies = [];
     this.imageService.connect();
     this.triggerTimerSubscription = interval(this.pictureTimer).subscribe(x => {
       this.trigger.next();
@@ -123,6 +124,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   startCall(): void {
+    this.replies = [];
     this.agoraService.client.join(this.token, this.channelKey, this.authenticationService.currentUserValue.id,
       (uid) => {
         this.localStream = this.agoraService.createStream(RoomComponent.getStreamConfig(uid));
