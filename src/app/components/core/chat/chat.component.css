@@ -1,9 +1,10 @@
 .container{
   height: 300px;
   overflow-y: scroll;
-  opacity: 0.5;
+  opacity: 0.8;
 }
 
 .container:hover{
   opacity: 1.0;
+  background-color: rgba(0, 0, 0, 0.6);
 }

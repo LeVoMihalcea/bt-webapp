@@ -1,4 +1,4 @@
-<div class="container">
-  <div *ngFor="let message of messages">{{message}}</div>
+<div class="container" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+  <div *ngFor="let reply of replies">{{reply.message}}</div>
 </div>
 
