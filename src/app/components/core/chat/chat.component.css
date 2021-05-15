@@ -2,8 +2,15 @@
   height: 300px;
   overflow-y: scroll;
   opacity: 0.5;
+  background-color: rgba(0, 0, 0, 0.5);
+  /*border-radius: 25px;*/
 }
 
 .container:hover{
-  opacity: 1.0;
+  background-color: rgba(0, 0, 0, 1);
+}
+
+.message{
+  height: 30px;
+  /*border-bottom: solid 1px red;*/
 }
