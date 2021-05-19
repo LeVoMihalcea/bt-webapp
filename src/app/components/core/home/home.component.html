@@ -33,28 +33,9 @@
 </div>
 
 <div fxLayout="row" fxLayoutAlign="center center">
-  <mat-card *ngIf="!loading && this.rooms.length === 0" class="info-card">
-    <mat-card-header>
-      <div mat-card-avatar>
-        <span class="title-material-icons material-icons">
-          home
-        </span>
-      </div>
-      <mat-card-title>Welcome to {{this.title}}</mat-card-title>
-      <mat-card-subtitle>Information</mat-card-subtitle>
-    </mat-card-header>
-    <hr>
-    <mat-card-content>
-      <h3>
-        Looks like you are not in any rooms yet.<br>
-        You can use the buttons on the left side to either:
-        <ul>
-          <li>Create a Room of your own</li>
-          <li>Join a Room of someone else</li>
-        </ul>
-      </h3>
-    </mat-card-content>
-  </mat-card>
+  <div *ngIf="!loading && this.rooms.length === 0" class="info-card">
+    <app-no-rooms-page></app-no-rooms-page>
+  </div>
 
 </div>
 

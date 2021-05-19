@@ -1,0 +1,13 @@
+mat-card {
+  max-width: 400px;
+  margin: 2em 5%;
+}
+
+button{
+  margin-top: 10px;
+  width: 100%;
+}
+
+.title-material-icons{
+  font-size: 300%;
+}

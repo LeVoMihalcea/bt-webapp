@@ -26,6 +26,7 @@ import {RoomDialogComponent} from './components/core/room-dialog/room-dialog.com
 import {MatDialogModule} from '@angular/material/dialog';
 import {ErrorInterceptor} from '@app/components/_helpers/interceptors/error.interceptor';
 import { RoomInformationComponent } from './components/core/room-information/room-information.component';
+import { NoRoomsPageComponent } from './components/core/no-rooms-page/no-rooms-page.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -48,6 +49,7 @@ const routes: Routes = [
     ChatComponent,
     RoomDialogComponent,
     RoomInformationComponent,
+    NoRoomsPageComponent,
   ],
   imports: [
     CommonModule,

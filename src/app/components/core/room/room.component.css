@@ -3,6 +3,7 @@
   height: 92vh;
   margin: 0 auto 0 auto;
   z-index: 5;
+  overflow: hidden;
 }
 
 .chat {
@@ -21,9 +22,15 @@ webcam {
   font-size: 300%;
 }
 
+.material-icons{
+  display: inline-flex;
+  vertical-align: middle;
+}
+
 .room-name{
   position: absolute;
   top: 20px;
   left: 20px;
   z-index: 10;
 }
+

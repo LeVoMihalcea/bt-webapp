@@ -19,7 +19,7 @@
        *ngIf="authenticationService.currentUserValue && !mobileQuery.matches">Log Out</a>
   </mat-toolbar>
 
-  <mat-sidenav-container class="sidenav-container">
+  <mat-sidenav-container autosize class="sidenav-container">
     <mat-sidenav #sidenav [opened]="shouldHideNavbar()"
                  [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
@@ -43,7 +43,7 @@
       </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content>
+    <mat-sidenav-content style="overflow: hidden">
       <div class="container">
         <router-outlet></router-outlet>
       </div>

@@ -30,10 +30,10 @@ export class CreateRoomComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
       predefinedType: ['', [Validators.required]],
       type: ['', []],
-      description: ['', [Validators.required]],
+      description: ['', [Validators.required, Validators.maxLength(255)]],
       firstDateTime: ['', []],
       hours: ['', []],
       repeatEvery: ['', []],

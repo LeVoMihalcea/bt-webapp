@@ -11,7 +11,7 @@ import {MediaMatcher} from '@angular/cdk/layout';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'bt-webapp';
+  title = 'emoti';
   darkTheme: boolean;
   public env: any;
   public mobileQuery: MediaQueryList;

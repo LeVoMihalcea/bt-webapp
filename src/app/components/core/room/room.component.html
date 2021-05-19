@@ -60,7 +60,7 @@
   </div>
 </div>
 
-<webcam [trigger]="triggerObservable()" [imageQuality]="0.70" (imageCapture)="handleImage($event)"></webcam>
+<webcam [trigger]="triggerObservable()" [imageQuality]="0.70" (imageCapture)="handleImage($event)" allowCameraSwitch="true" #webcam></webcam>
 <app-chat class="chat" [replies]="this.imageService.messages" *ngIf="!this.roomState.chatOff"></app-chat>
 
 

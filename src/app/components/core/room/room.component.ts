@@ -69,6 +69,9 @@ export class RoomComponent implements OnInit, OnDestroy {
   remoteCalls: any = [];
   breakpoint: any;
 
+  @ViewChild('webcam')
+  private webcam: WebcamImage;
+
   private static getConfig(): ClientConfig {
     return {
       mode: 'live',
@@ -166,7 +169,7 @@ export class RoomComponent implements OnInit, OnDestroy {
           console.log('Publish local stream successfully')
         );
       },
-      (err) => this.toastService.showError('getUserMedia failed' + err)
+      (err) => this.toastService.showError('Could not access the microphone or camera! Please check that no other app is using them')
     );
   }
 
@@ -317,13 +320,10 @@ export class RoomComponent implements OnInit, OnDestroy {
     );
   }
 
-  changeCamera($event: MatOptionSelectionChange): void {
-    this.localStream.switchDevice('video', $event.source.value.deviceId,
-      () => console.log('SUCCESS'), () => console.log('FAILURE'));
-  }
-
   openSettings(): void {
-    const dialogRef = this.dialog.open(RoomDialogComponent, {width: '20%'});
+    const dialogRef = this.dialog.open(RoomDialogComponent, {
+      width: '20%',
+    });
     dialogRef.afterClosed().subscribe((settings) => {
       console.log(settings);
       if (settings.videoDeviceId !== undefined) {

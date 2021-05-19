@@ -1,0 +1,19 @@
+<mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <span class="title-material-icons material-icons">
+          home
+        </span>
+      </div>
+      <mat-card-title>Welcome to {{this.title}}</mat-card-title>
+      <mat-card-subtitle>Information</mat-card-subtitle>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+      <h3>
+        Looks like you are not in any rooms yet
+        <button mat-raised-button color="primary" [routerLink]="['/create']">Create a Room of your own</button>
+        <button mat-raised-button color="primary" [routerLink]="['/join']">Join a Room</button>
+      </h3>
+    </mat-card-content>
+</mat-card>
