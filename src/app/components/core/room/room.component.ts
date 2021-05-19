@@ -163,7 +163,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       () => {
         this.localStream.play('agora_local');
         this.agoraService.client.publish(this.localStream, (err) =>
-          this.toastService.showError('Publish local stream error: ' + err)
+          this.toastService.showError('Something went wrong publishing the stream!')
         );
         this.agoraService.client.on(ClientEvent.LocalStreamPublished, (evt) =>
           console.log('Publish local stream successfully')
@@ -182,7 +182,7 @@ export class RoomComponent implements OnInit, OnDestroy {
           () => {
           },
           (error) => {
-            this.toastService.showError('Renew channel key failed: ' + error);
+            this.toastService.showError('Renewal of key failed: ' + error);
           }
         );
       }
