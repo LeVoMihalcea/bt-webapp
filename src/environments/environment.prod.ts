@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  name: 'PROD',
+  name: '',
   apiUrl: 'https://bt-backend.sudo.rocks',
   socketUrl: 'https://bt-backend.sudo.rocks/ws',
   agoraTokenApiUrl: 'https://bt-tokenizer.sudo.rocks',
