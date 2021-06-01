@@ -8,6 +8,7 @@ export class Room {
   description: string;
   host: User;
   roomCalendarEntry: RoomCalendarEntry;
+  timezone: string;
 
   constructor(name: string, type: string, description: string, roomCalendarEntry?: RoomCalendarEntry) {
     this.name = name;

@@ -65,6 +65,9 @@ export class CreateRoomComponent implements OnInit {
       roomCalendarEntry
     );
 
+    console.log(room);
+    room.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
     this.roomService.createRoom(room)
       .subscribe(
         data => {
