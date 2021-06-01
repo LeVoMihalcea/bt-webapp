@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private clipboardService: ClipboardService,
     private toastService: ToastService,
-    private appComponent: AppComponent
+    public appComponent: AppComponent
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
     this.title = appComponent.getTitle();
