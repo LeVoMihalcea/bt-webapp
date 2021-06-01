@@ -15,7 +15,6 @@ body{
 }
 
 .container {
-  min-height: 100vh;
 }
 
 .is-mobile .toolbar {
@@ -38,7 +37,10 @@ mat-sidenav-content{
 }
 
 .app-header{
-  z-index:1000;
-  height: 8vh;
-  max-height: 70px;
+  /*z-index:1000;*/
+  /*height: 8vh;*/
+  /*max-height: 70px;*/
+}
+
+router-outlet{
 }
