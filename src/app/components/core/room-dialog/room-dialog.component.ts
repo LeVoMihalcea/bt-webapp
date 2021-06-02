@@ -1,7 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Component} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
 import {NgxAgoraService} from 'ngx-agora';
-import {Room} from "@app/components/domain/Room";
 
 @Component({
   selector: 'app-room-dialog',
@@ -18,7 +17,11 @@ export class RoomDialogComponent {
     public dialogRef: MatDialogRef<RoomDialogComponent>) {
   }
 
-  closeDialog(): void {
+  save(): void {
     this.dialogRef.close({videoDeviceId: this.videoDeviceId, audioDeviceId: this.audioDeviceId});
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 }

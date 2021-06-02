@@ -1,7 +1,7 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 
 <div class="container" fxLayout="row wrap">
-  <div class="card-container" *ngFor="let room of rooms" fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.gt-lg="25%">
+  <div class="card-container" *ngFor="let room of rooms" fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.lg="25%" fxFlex.gt-lg="20%">
     <mat-card class="card">
       <mat-card-header>
         <div mat-card-avatar>
@@ -14,9 +14,7 @@
       </mat-card-header>
       <hr>
       <mat-card-content>
-        <p>
-          {{(room.description.length > maxLength) ? (room.description | slice:0:maxLength) + '..' : (room.description)}}
-        </p>
+          {{room.description}}}
       </mat-card-content>
       <mat-card-actions>
         <div *ngIf="!appComponent.mobileQuery.matches">
@@ -31,7 +29,7 @@
         </div>
 
         <div *ngIf="appComponent.mobileQuery.matches">
-          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">

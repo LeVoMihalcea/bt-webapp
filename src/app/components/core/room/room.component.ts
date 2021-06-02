@@ -97,7 +97,6 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.replies = [];
     this.imageService.connect();
     this.triggerTimerSubscription = interval(this.pictureTimer).subscribe(x => {
       this.trigger.next();
@@ -127,7 +126,6 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   startCall(): void {
-    this.replies = [];
     this.agoraService.client.join(this.token, this.channelKey, this.authenticationService.currentUserValue.id,
       (uid) => {
         this.localStream = this.agoraService.createStream(RoomComponent.getStreamConfig(uid));

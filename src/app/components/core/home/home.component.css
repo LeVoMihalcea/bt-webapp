@@ -1,6 +1,6 @@
 .container{
   width: 100%;
-  margin: 8px 8px 0 8px;
+  margin-right: 8px;
 }
 
 .card-container{
@@ -13,4 +13,10 @@
 
 .info-card > mat-card-content{
   padding: 50px 0 50px 0;
+}
+
+mat-card-title{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

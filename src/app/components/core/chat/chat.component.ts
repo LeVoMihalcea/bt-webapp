@@ -13,5 +13,7 @@ export class ChatComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.replies.length = 0;
+  }
 }
