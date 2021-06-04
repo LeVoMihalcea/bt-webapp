@@ -1,7 +1,7 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 
 <div class="container" fxLayout="row wrap">
-  <div class="card-container" *ngFor="let room of rooms" fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.lg="25%" fxFlex.gt-lg="20%">
+  <div class="card-container" *ngFor="let room of rooms" fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.lg="33%" fxFlex.gt-lg="25%">
     <mat-card class="card">
       <mat-card-header>
         <div mat-card-avatar>
@@ -9,12 +9,29 @@
             voice_chat
           </span>
         </div>
-        <mat-card-title>{{room.name}}</mat-card-title>
+        <mat-card-title>
+          {{room.name}}
+        </mat-card-title>
+        <div *ngIf="appComponent.mobileQuery.matches" class="mobile-buttons">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button class="tall-button" mat-button (click)="navigateToRoom(room.id)">Join</button>
+            <button class="tall-button" mat-button (click)="copyIdToClipboard(room.id)">Copy Join Code</button>
+            <button class="tall-button" mat-button (click)="deleteRoom(room.id)"
+                    *ngIf="this.room.host.email == this.currentUser.email">Delete
+            </button>
+            <button mat-button (click)="leaveRoom(room.id)"
+                    *ngIf="this.room.host.email != this.currentUser.email">Leave
+            </button>
+          </mat-menu>
+        </div>
         <mat-card-subtitle>{{room.type + " - " + room.host.firstName + " " + room.host.lastName}}</mat-card-subtitle>
       </mat-card-header>
       <hr>
       <mat-card-content>
-          {{room.description}}}
+          {{room.description}}
       </mat-card-content>
       <mat-card-actions>
         <div *ngIf="!appComponent.mobileQuery.matches">
@@ -26,22 +43,6 @@
           <button mat-button (click)="leaveRoom(room.id)"
                   *ngIf="this.room.host.email != this.currentUser.email">Leave
           </button>
-        </div>
-
-        <div *ngIf="appComponent.mobileQuery.matches">
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-button (click)="navigateToRoom(room.id)">Join</button>
-            <button mat-button (click)="copyIdToClipboard(room.id)">Copy Join Code</button>
-            <button mat-button (click)="deleteRoom(room.id)"
-                    *ngIf="this.room.host.email == this.currentUser.email">Delete
-            </button>
-            <button mat-button (click)="leaveRoom(room.id)"
-                    *ngIf="this.room.host.email != this.currentUser.email">Leave
-            </button>
-          </mat-menu>
         </div>
       </mat-card-actions>
     </mat-card>

@@ -319,9 +319,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   openSettings(): void {
-    const dialogRef = this.dialog.open(RoomDialogComponent, {
-      width: '20%',
-    });
+    const dialogRef = this.dialog.open(RoomDialogComponent, {});
     dialogRef.afterClosed().subscribe((settings) => {
       console.log(settings);
       if (settings.videoDeviceId !== undefined) {
@@ -335,7 +333,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   openInformationDialog(): void {
     this.dialog.open(RoomInformationComponent, {
-      data: this.room
+      data: this.room,
     });
   }
 
