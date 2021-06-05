@@ -48,6 +48,7 @@ export class RegisterComponent implements OnInit {
         error: error => {
           console.log(error);
           this.loading = false;
+          this.error = error.error.subErrors;
         }
       });
   }

@@ -38,7 +38,6 @@ export class JoinRoomComponent implements OnInit {
           this.router.navigate(['']);
         },
         error => {
-          console.log('something went wrong', error);
           this.error = error;
         });
   }
