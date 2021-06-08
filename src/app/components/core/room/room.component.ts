@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from '@app/services/authentication.service';
 import {TokenService} from '@app/services/token.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -8,13 +8,12 @@ import {ToastService} from '@app/services/toast.service';
 import {RoomService} from '@app/services/room.service';
 import {Room} from '@app/components/domain/Room';
 import {SharedService} from '@app/services/shared.service';
-import {Observable, Subject, Subscription, interval} from 'rxjs';
+import {interval, Observable, Subject, Subscription} from 'rxjs';
 import {WebcamImage} from 'ngx-webcam';
 import {ImageService} from '@app/services/image.service';
 import {ClipboardService} from 'ngx-clipboard';
 import {UserService} from '@app/services/user.service';
 import {UserStream} from '@app/components/domain/UserStream';
-import {MatOptionSelectionChange} from '@angular/material/core';
 import {RoomDialogComponent} from '@app/components/core/room-dialog/room-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {RoomInformationComponent} from '@app/components/core/room-information/room-information.component';
@@ -319,7 +318,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   openSettings(): void {
-    const dialogRef = this.dialog.open(RoomDialogComponent, {});
+    const dialogRef = this.dialog.open(RoomDialogComponent, {width: '90%', maxWidth: '500px'});
     dialogRef.afterClosed().subscribe((settings) => {
       console.log(settings);
       if (settings.videoDeviceId !== undefined) {
