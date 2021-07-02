@@ -34,7 +34,6 @@ export class JoinRoomComponent implements OnInit {
     this.roomService.joinRoom(code)
       .subscribe(
         data => {
-          console.log(data);
           this.router.navigate(['']);
         },
         error => {

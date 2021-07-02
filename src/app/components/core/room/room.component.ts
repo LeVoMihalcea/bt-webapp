@@ -162,9 +162,8 @@ export class RoomComponent implements OnInit, OnDestroy {
         this.agoraService.client.publish(this.localStream, (err) =>
           this.toastService.showError('Something went wrong publishing the stream!')
         );
-        this.agoraService.client.on(ClientEvent.LocalStreamPublished, (evt) =>
-          console.log('Publish local stream successfully')
-        );
+        this.agoraService.client.on(ClientEvent.LocalStreamPublished, (evt) => {
+        });
       },
       (err) => this.toastService.showError('Could not access the microphone or camera! Please check that no other app is using them')
     );
@@ -214,7 +213,6 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.agoraService.client.on(ClientEvent.RemoteStreamRemoved, (evt) => {
       const stream = evt.stream as Stream;
       stream.stop();
-      console.log(this.remoteCalls);
       this.remoteCalls = this.remoteCalls.filter(
         (call) => call !== `agora_remote${stream.getId()}`
       );
@@ -258,7 +256,6 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   toggleSound(): void {
     this.roomState.soundOff = !this.roomState.soundOff;
-    console.log(this.remoteCalls);
     if (this.roomState.soundOff) {
       this.muteAllRemoteCalls();
       return;
@@ -307,12 +304,11 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   handleImage($event: WebcamImage): void {
-    console.log('image sent');
     this.imageRestService.sendImage($event.imageAsDataUrl).subscribe(
       (response) => {
       },
       error => {
-        this.toastService.showError('Something went wrong sending the image!');
+        // this.toastService.showError('Something went wrong sending the image!');
       }
     );
   }
@@ -320,7 +316,6 @@ export class RoomComponent implements OnInit, OnDestroy {
   openSettings(): void {
     const dialogRef = this.dialog.open(RoomDialogComponent, {width: '90%', maxWidth: '500px'});
     dialogRef.afterClosed().subscribe((settings) => {
-      console.log(settings);
       if (settings.videoDeviceId !== undefined) {
         this.localStream.switchDevice('video', settings.videoDeviceId);
       }

@@ -1,5 +1,5 @@
 mat-card {
-  max-width: 400px;
+  max-width: 600px;
   margin: 2em 5%;
 }
 
@@ -10,4 +10,7 @@ button{
 
 .title-material-icons{
   font-size: 300%;
+}
+
+mat-card-content > h3{
 }

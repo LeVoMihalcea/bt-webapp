@@ -39,7 +39,6 @@ export class CreateRoomComponent implements OnInit {
       repeatEvery: ['', []],
       timeUnit: ['', []]
     });
-    console.log(this.form);
   }
 
   onSubmit(): void {
@@ -56,8 +55,6 @@ export class CreateRoomComponent implements OnInit {
       this.form.controls.timeUnit.value ? this.form.controls.timeUnit.value : 'WEEKLY',
     );
 
-    console.log(this.form.controls.predefinedType.value);
-
     const room = new Room(
       this.form.controls.name.value,
       this.form.controls.predefinedType.value === 'Other' ? this.form.controls.type.value : 'Other',
@@ -65,19 +62,16 @@ export class CreateRoomComponent implements OnInit {
       roomCalendarEntry
     );
 
-    console.log(room);
     room.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     this.roomService.createRoom(room)
       .subscribe(
         data => {
-          console.log(data);
           this.loading = false;
           this.router.navigate(['']);
         },
         error => {
           this.loading = false;
-          console.log('something went wrong', error);
           this.error = error;
         });
   }

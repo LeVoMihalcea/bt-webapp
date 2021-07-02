@@ -41,12 +41,10 @@ export class HomeComponent implements OnInit {
     this.roomService.getRooms()
       .subscribe(
         data => {
-          console.log(data);
           this.rooms = data;
           this.loading = false;
         },
         error => {
-          console.log(error);
         }
       );
   }
@@ -67,7 +65,6 @@ export class HomeComponent implements OnInit {
   deleteRoom(id: string): void {
     this.roomService.deleteRoom(id)
       .subscribe(data => {
-          console.log(data);
           this.getRooms();
         },
         error => {
@@ -78,7 +75,6 @@ export class HomeComponent implements OnInit {
   leaveRoom(id: string): void {
     this.roomService.leaveRoom(id)
       .subscribe(data => {
-          console.log(data);
           this.getRooms();
         },
         error => {

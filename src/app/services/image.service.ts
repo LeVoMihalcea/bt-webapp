@@ -33,7 +33,6 @@ export class ImageService {
   }
 
   errorCallBack(error): void {
-    console.log('errorCallBack -> ' + error);
     setTimeout(() => {
       this.connect();
     }, 5000);
@@ -44,8 +43,6 @@ export class ImageService {
   }
 
   onMessageReceived(message: IFrame): void {
-    console.log('Message Recieved from Server :: ' + message.body);
-    console.log(this.messages);
     const parsedMessage = JSON.parse(message.body);
     this.messages.push(parsedMessage);
   }
