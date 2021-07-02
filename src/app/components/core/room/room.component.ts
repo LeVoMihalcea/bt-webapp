@@ -308,7 +308,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       (response) => {
       },
       error => {
-        // this.toastService.showError('Something went wrong sending the image!');
+        this.toastService.showError('Something went wrong sending the image!');
       }
     );
   }
